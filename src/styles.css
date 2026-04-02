@@ -1,0 +1,386 @@
+
+:root {
+  /* Medium theme (for NON-login pages) */
+  --bg-start: #e9ecff;
+  --bg-end: #f8fafc;
+
+  --text: #0f172a;
+  --muted: #64748b;
+
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+
+  --border: #e5e7eb;
+  --panel-bg: rgba(255, 255, 255, 0.92);
+  --shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+  --radius: 14px;
+
+  --app-max: 1100px;
+}
+
+/* -----------------------------
+   Reset
+------------------------------ */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color: var(--text);
+}
+
+/* ==========================================================
+   ✅ GLOBAL BACKGROUND FOR ALL NON-LOGIN PAGES
+   (Register, Services, Service detail pages)
+========================================================== */
+.app-bg{
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 520px at 20% 10%, rgba(79,70,229,0.18), transparent 60%),
+    radial-gradient(900px 520px at 80% 0%, rgba(16,185,129,0.12), transparent 60%),
+    linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  padding: 24px 16px 60px;
+}
+
+/* ==========================================================
+   ✅ LOGIN-ONLY BACKGROUND (Campbell-like red)
+   Use this wrapper ONLY in Login.jsx:
+   <div className="login-bg"><div className="login-card">...</div></div>
+========================================================== */
+
+.login-bg{
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 520px at 20% 10%, rgba(79,70,229,0.25), transparent 60%),
+    radial-gradient(900px 520px at 80% 0%, rgba(16,185,129,0.14), transparent 60%),
+    linear-gradient(135deg, #e9ecff, #f8fafc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 14px;
+}
+
+/* -----------------------------
+   Login Card (PrepX Company)
+------------------------------ */
+
+.login-card{
+  width: 100%;
+  max-width: 520px;
+  background: rgba(255,255,255,0.96);
+  border-radius: 12px;
+  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.55);
+  backdrop-filter: blur(10px);
+}
+
+
+.login-logo{
+  padding: 22px 18px 10px;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.login-logo-box{
+  width: 260px;
+  height: 92px;
+
+  /* ✅ lighter indigo gradient */
+  background: linear-gradient(135deg, #7c83ff, #6a5cff);
+
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* subtle depth */
+  box-shadow: 0 10px 26px rgba(79, 70, 229, 0.18);
+}
+
+
+.login-logo-box span{
+  display: block;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 11px;
+  opacity: 0.95;
+}
+
+.login-title{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 8px 0 14px;
+
+color: #111827;
+}
+
+.login-welcome{
+  margin: 0 24px 16px;
+  padding: 10px 12px;
+  text-align: center;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #111827;
+}
+
+.login-form{
+  padding: 0 24px 22px;
+}
+
+.login-btn{
+  width: 100%;
+  padding: 12px 14px;
+  background: #0b5a8f;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.login-btn:hover{ background: #094a76; }
+.login-btn:disabled{ opacity: 0.65; cursor: not-allowed; }
+
+.login-bottom{
+  margin-top: 10px;
+  font-size: 13px;
+  color: #111827;
+  text-align: left;
+}
+
+.login-link{
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+.login-link:hover{ text-decoration: underline; }
+
+/* ==========================================================
+   ✅ FULL-WIDTH APP LAYOUT (Register / Services / Detail pages)
+========================================================== */
+.app-page{
+  width: 100%;
+  max-width: var(--app-max);
+  margin: 0 auto;
+}
+
+.topbar{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.badge{
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.85);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.panel{
+  width: 100%;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+h2{
+  margin: 0 0 6px;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.subtitle{
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   ✅ FORM & INPUTS (Buttons should NOT be long)
+========================================================== */
+.form{
+  display: grid;
+  gap: 14px;
+  justify-items: start;   /* ✅ IMPORTANT: prevents long button width */
+}
+
+.field{ width: 100%; }
+
+.label{
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.input{
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #fff;
+  outline: none;
+}
+
+.input:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* ==========================================================
+   ✅ BUTTONS (Compact)
+========================================================== */
+.btn{
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 650;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: auto;        /* ✅ compact */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary{
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover{ background: var(--primary-hover); }
+
+.btn-outline{
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+.btn-sm{
+  padding: 7px 10px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn:disabled{
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.row{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-grow{
+  flex: 1;
+  min-width: 220px;
+}
+
+/* Divider + success box */
+.divider{
+  height: 1px;
+  width: 100%;
+  background: rgba(2,6,23,0.10);
+  margin: 14px 0;
+}
+
+.success{
+  width: 100%;
+  background: rgba(16,185,129,0.12);
+  border: 1px solid rgba(16,185,129,0.25);
+  color: #065f46;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+/* Links */
+.link{
+  color: var(--primary);
+  font-weight: 650;
+  text-decoration: none;
+}
+.link:hover{ text-decoration: underline; }
+
+/* ==========================================================
+   ✅ SERVICES LIST CARDS (clickable links)
+========================================================== */
+.service-links{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.service-link{
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 16px rgba(15,23,42,0.06);
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.service-link:hover{
+  transform: translateY(-1px);
+  border-color: rgba(79, 70, 229, 0.45);
+  box-shadow: 0 10px 22px rgba(15,23,42,0.10);
+}
+
+.service-link-title{
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.service-link-subtitle{
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.service-link-action{
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================
+   ✅ SERVICE DETAIL CONTENT formatting
+========================================================== */
+.content h3{
+  margin: 16px 0 8px;
+  font-size: 1.05rem;
+}
+
+.content p{
+  margin: 0 0 10px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.content ul{
+  margin: 0 0 10px 18px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px){
+  .service-links{ grid-template-columns: 1fr; }
+}

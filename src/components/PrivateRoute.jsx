@@ -1,15 +1,16 @@
 
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+import * as authService from "../services/authService";
 
 export default function PrivateRoute({ children }) {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => setUser(u || null));
-    return () => unsub();
+    (async () => {
+      const currentUser = await authService.getCurrentUser();
+      setUser(currentUser || null);
+    })();
   }, []);
 
   if (user === undefined) return <div style={{ padding: 20 }}>Loading...</div>;

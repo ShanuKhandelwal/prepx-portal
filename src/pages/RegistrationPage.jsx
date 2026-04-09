@@ -1,8 +1,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import * as authService from "../services/authService";
 import { useAuth } from "../auth/AuthProvider";
 
 export default function RegistrationPage() {
@@ -17,20 +16,7 @@ export default function RegistrationPage() {
     // No validation (as per your requirement)
     try {
       setSaving(true);
-
-      const ref = await addDoc(collection(db, "registrations"), {
-        uid: user.uid,
-        name,
-        dob,
-        createdAt: serverTimestamp(),
-      });
-
-      await setDoc(
-        doc(db, "users", user.uid),
-        { registrationId: ref.id, updatedAt: serverTimestamp() },
-        { merge: true }
-      );
-
+      await authService.registerCandidate(user.uid, name, dob);
       navigate("/services");
     } catch (e) {
       console.error(e);

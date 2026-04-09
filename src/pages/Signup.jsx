@@ -1,8 +1,6 @@
 
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../firebase";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import * as authService from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
@@ -18,15 +16,7 @@ export default function Signup() {
 
     try {
       setLoading(true);
-      const cred = await createUserWithEmailAndPassword(auth, email, password);
-
-      // Create profile doc (frontend-only)
-      await setDoc(doc(db, "users", cred.user.uid), {
-        email,
-        createdAt: serverTimestamp(),
-        registrationId: null, // will be set after candidate registers
-      });
-
+      await authService.signup(email, password);
       nav("/register");
     } catch (err) {
       console.error(err);

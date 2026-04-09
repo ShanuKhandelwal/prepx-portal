@@ -1,7 +1,6 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import * as authService from "../services/authService";
 
 const AuthContext = createContext(null);
 
@@ -10,14 +9,18 @@ export function AuthProvider({ children }) {
   const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
+    // Check if user is logged in (stored in localStorage)
+    (async () => {
+      const currentUser = await authService.getCurrentUser();
+      setUser(currentUser);
       setAuthLoading(false);
-    });
-    return () => unsub();
+    })();
   }, []);
 
-  const logout = () => signOut(auth);
+  const logout = async () => {
+    await authService.logout();
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider value={{ user, authLoading, logout }}>

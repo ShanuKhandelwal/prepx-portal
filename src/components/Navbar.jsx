@@ -1,8 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import * as authService from "../services/authService";
 import { useAuth } from "../auth/AuthProvider";
 
 export default function NavBar() {
@@ -15,11 +14,10 @@ export default function NavBar() {
       return;
     }
 
-    const unsub = onSnapshot(doc(db, "users", user.uid), (snap) => {
-      setRegistrationId(snap.data()?.registrationId || null);
-    });
-
-    return () => unsub();
+    (async () => {
+      const regId = await authService.getRegistrationId();
+      setRegistrationId(regId);
+    })();
   }, [user]);
 
   return (

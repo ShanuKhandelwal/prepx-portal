@@ -1,0 +1,343 @@
+/* Payment Scanner Page Styles */
+
+.payment-scanner-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Top Bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+.badge {
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Scanner Container */
+.scanner-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Scanner Card */
+.scanner-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideInUp 0.5s ease;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scanner-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.scanner-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Owner Details Card */
+.owner-details-card {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 2px solid #667eea;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.owner-details-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.owner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.owner-info p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.owner-info a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.owner-info a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Service Details Card */
+.service-details-card {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 2px solid #667eea;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.service-details-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.service-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.service-info p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.service-info strong {
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* QR Scanner Area */
+.qr-scanner-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #667eea;
+}
+
+.payment-qr-code-large {
+  width: 280px;
+  height: 280px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.3));
+}
+
+.scanner-instruction {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+  font-weight: 500;
+}
+
+.payment-done-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.payment-done-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* Payment Success Card */
+.payment-success-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideInUp 0.5s ease;
+  text-align: center;
+}
+
+.success-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Confirmation Card */
+.confirmation-card {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 2px solid #667eea;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.confirmation-card h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.confirmation-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.confirmation-steps p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.confirmation-steps strong {
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* Back to Dashboard Button */
+.back-to-dashboard-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.back-to-dashboard-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 15px 20px;
+  }
+
+  .scanner-container {
+    margin: 20px auto;
+  }
+
+  .scanner-card,
+  .payment-success-card {
+    padding: 25px;
+  }
+
+  .scanner-title,
+  .success-title {
+    font-size: 1.5rem;
+  }
+
+  .payment-qr-code-large {
+    width: 200px;
+    height: 200px;
+  }
+
+  .qr-scanner-area {
+    padding: 20px;
+  }
+
+  .payment-done-btn,
+  .back-to-dashboard-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .owner-details-card,
+  .service-details-card,
+  .confirmation-card {
+    padding: 15px;
+  }
+
+  .confirmation-card {
+    text-align: center;
+  }
+
+  .confirmation-steps {
+    gap: 10px;
+  }
+}

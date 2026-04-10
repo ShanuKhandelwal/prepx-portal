@@ -1,4 +1,6 @@
 
+
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as authService from "../services/authService";
@@ -26,14 +28,18 @@ export default function RegistrationPage() {
     }
   };
 
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+
   return (
     <div className="app-page">
       <div className="topbar">
+        <button className="btn btn-outline btn-sm" onClick={() => navigate("/login")}>← Back</button>
         <span className="badge">{user?.email}</span>
-        <button className="btn btn-outline btn-sm" onClick={logout}>Logout</button>
-      </div>
-
-      <div className="panel">
+        <button className="btn btn-outline btn-sm" onClick={handleLogout}>Logout</button>
+      </div>      <div className="panel">
         <h2>Candidate Registration</h2>
         <p className="subtitle">Enter candidate details to continue.</p>
 

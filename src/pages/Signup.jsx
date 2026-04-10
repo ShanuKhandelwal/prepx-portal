@@ -6,51 +6,264 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const nav = useNavigate();
 
   const onSignup = async (e) => {
     e.preventDefault();
-    if (!email || !password) return alert("Email & password required");
-    if (password.length < 6) return alert("Password must be at least 6 characters");
+    setError(""); // Clear previous errors
+    setSuccess(false);
+
+    if (!email || !password || !confirmPassword) {
+      setError("All fields are required");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
     try {
       setLoading(true);
       await authService.signup(email, password);
-      nav("/register");
+      setSuccess(true);
+      // Redirect to register after 1 second
+      setTimeout(() => nav("/register"), 1000);
     } catch (err) {
-      console.error(err);
-      alert(err.message);
+      console.error("Signup error:", err);
+      setError(err.message || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ padding: 20, maxWidth: 420 }}>
-      <h2>Create Account</h2>
-      <form onSubmit={onSignup}>
-        <input
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ width: "100%", padding: 10, marginBottom: 10 }}
-        />
-        <input
-          placeholder="Password (min 6 chars)"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ width: "100%", padding: 10, marginBottom: 10 }}
-        />
-        <button disabled={loading} style={{ padding: 10, width: "100%" }}>
-          {loading ? "Creating..." : "Sign Up"}
-        </button>
-      </form>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundColor: "#f5f5f5",
+        padding: "20px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 450,
+          width: "100%",
+          backgroundColor: "white",
+          borderRadius: "12px",
+          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)",
+          padding: "40px",
+        }}
+      >
+        {/* Header */}
+        <h2
+          style={{
+            fontSize: "28px",
+            color: "#333",
+            marginBottom: 10,
+            textAlign: "center",
+          }}
+        >
+          Create Account
+        </h2>
+        <p
+          style={{
+            color: "#666",
+            fontSize: "14px",
+            textAlign: "center",
+            marginBottom: 30,
+          }}
+        >
+          Sign up with any email to get started
+        </p>
 
-      <p style={{ marginTop: 10 }}>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+        {/* Success Message */}
+        {success && (
+          <div
+            style={{
+              padding: 12,
+              marginBottom: 20,
+              backgroundColor: "#d4edda",
+              border: "1px solid #c3e6cb",
+              borderRadius: 4,
+              color: "#155724",
+              textAlign: "center",
+              fontSize: "0.9rem",
+            }}
+          >
+            ✅ Account created! Redirecting...
+          </div>
+        )}
+
+        {/* Error Message */}
+        {error && (
+          <div
+            style={{
+              padding: 12,
+              marginBottom: 20,
+              backgroundColor: "#f8d7da",
+              border: "1px solid #f5c6cb",
+              borderRadius: 4,
+              color: "#721c24",
+              fontSize: "0.9rem",
+            }}
+          >
+            ❌ {error}
+          </div>
+        )}
+
+        <form onSubmit={onSignup}>
+          {/* Email Field */}
+          <div style={{ marginBottom: 20 }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: 8,
+                fontWeight: 600,
+                color: "#333",
+              }}
+            >
+              Email Address
+            </label>
+            <input
+              type="email"
+              placeholder="you@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value.trim())}
+              disabled={loading}
+              style={{
+                width: "100%",
+                padding: "10px 12px",
+                border: "1px solid #ddd",
+                borderRadius: "6px",
+                fontSize: "14px",
+                boxSizing: "border-box",
+              }}
+            />
+          </div>
+
+          {/* Password Field */}
+          <div style={{ marginBottom: 20 }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: 8,
+                fontWeight: 600,
+                color: "#333",
+              }}
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Minimum 6 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+              style={{
+                width: "100%",
+                padding: "10px 12px",
+                border: "1px solid #ddd",
+                borderRadius: "6px",
+                fontSize: "14px",
+                boxSizing: "border-box",
+              }}
+            />
+          </div>
+
+          {/* Confirm Password Field */}
+          <div style={{ marginBottom: 25 }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: 8,
+                fontWeight: 600,
+                color: "#333",
+              }}
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              placeholder="Re-enter your password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              disabled={loading}
+              style={{
+                width: "100%",
+                padding: "10px 12px",
+                border: "1px solid #ddd",
+                borderRadius: "6px",
+                fontSize: "14px",
+                boxSizing: "border-box",
+              }}
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: "100%",
+              padding: "12px",
+              backgroundColor: loading ? "#ccc" : "#007bff",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              fontSize: "16px",
+              fontWeight: 600,
+              cursor: loading ? "not-allowed" : "pointer",
+              marginBottom: 20,
+            }}
+          >
+            {loading ? "Creating Account..." : "Create Account"}
+          </button>
+        </form>
+
+        {/* Sign In Link */}
+        <div style={{ textAlign: "center", marginBottom: 15 }}>
+          <p style={{ margin: 0, color: "#666", fontSize: "14px" }}>
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              style={{
+                color: "#007bff",
+                textDecoration: "none",
+                fontWeight: 600,
+              }}
+            >
+              Sign In
+            </Link>
+          </p>
+        </div>
+
+        {/* Back to Welcome */}
+        <div style={{ textAlign: "center" }}>
+          <Link
+            to="/"
+            style={{
+              color: "#888",
+              textDecoration: "none",
+              fontSize: "13px",
+            }}
+          >
+            ← Back to Welcome
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

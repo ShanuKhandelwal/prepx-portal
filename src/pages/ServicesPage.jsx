@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 
 const SERVICES = [
@@ -11,12 +11,19 @@ const SERVICES = [
 
 export default function ServicesPage() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   return (
     <div className="app-page">
       <div className="topbar">
+        <button className="btn btn-outline btn-sm" onClick={() => navigate("/register")}>← Back</button>
         <span className="badge">{user?.email}</span>
-        <button className="btn btn-outline btn-sm" onClick={logout}>Logout</button>
+        <button className="btn btn-outline btn-sm" onClick={handleLogout}>Logout</button>
       </div>
 
       <div className="panel">

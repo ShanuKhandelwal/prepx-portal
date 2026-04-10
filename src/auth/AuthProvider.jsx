@@ -11,11 +11,23 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     // Check if user is logged in (stored in localStorage)
     (async () => {
-      const currentUser = await authService.getCurrentUser();
-      setUser(currentUser);
-      setAuthLoading(false);
+      try {
+        const currentUser = await authService.getCurrentUser();
+        setUser(currentUser);
+      } catch (err) {
+        console.error("Error getting current user:", err);
+        setUser(null);
+      } finally {
+        setAuthLoading(false);
+      }
     })();
   }, []);
+
+  const login = async (email, password) => {
+    const userData = await authService.login(email, password);
+    setUser(userData);
+    return userData;
+  };
 
   const logout = async () => {
     await authService.logout();
@@ -23,7 +35,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, authLoading, logout }}>
+    <AuthContext.Provider value={{ user, authLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

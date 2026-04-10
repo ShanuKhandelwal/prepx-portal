@@ -1,11 +1,12 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as authService from "../services/authService";
 import { useAuth } from "../auth/AuthProvider";
 
 export default function NavBar() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [registrationId, setRegistrationId] = useState(null);
 
   useEffect(() => {
@@ -20,6 +21,11 @@ export default function NavBar() {
     })();
   }, [user]);
 
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+
   return (
     <div style={{ display: "flex", gap: 12, padding: 12, borderBottom: "1px solid #ddd" }}>
       <Link to="/register">Register</Link>
@@ -28,7 +34,7 @@ export default function NavBar() {
       {registrationId && <Link to="/services">Services</Link>}
 
       <span style={{ marginLeft: "auto" }}>{user?.email}</span>
-      <button onClick={logout}>Logout</button>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }

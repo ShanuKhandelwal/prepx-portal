@@ -144,6 +144,84 @@ export default function FresherDashboard() {
           </div>
         </section>
 
+        {/* Enrolled Courses */}
+        <div>
+          <h2 style={{ fontSize: "24px", fontWeight: "bold", color: "#333", marginBottom: "20px" }}>
+            Your Courses
+          </h2>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "20px",
+              marginBottom: "40px",
+            }}
+          >
+            {/* ...existing course cards... */}
+          </div>
+        </div>
+
+        {/* Mock Interview Section */}
+        <div style={{ marginTop: "40px" }}>
+          <h2 style={{ fontSize: "24px", fontWeight: "bold", color: "#333", marginBottom: "20px" }}>
+            🎤 Mock Interview Practice
+          </h2>
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "10px",
+              padding: "30px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+              textAlign: "center",
+            }}
+          >
+            <div style={{ fontSize: "48px", marginBottom: "15px" }}>🎬</div>
+            <h3 style={{ fontSize: "20px", fontWeight: "bold", color: "#333", marginBottom: "12px" }}>
+              Practice Real Interview Scenarios
+            </h3>
+            <p style={{ fontSize: "14px", color: "#666", lineHeight: "1.6", marginBottom: "20px" }}>
+              Participate in mock interviews with AI-powered feedback. Get real-time evaluation of your communication, technical skills, and confidence.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "15px", marginBottom: "20px" }}>
+              <div style={{ backgroundColor: "#f8f9fa", padding: "15px", borderRadius: "8px" }}>
+                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#007bff" }}>0</div>
+                <div style={{ fontSize: "12px", color: "#666", marginTop: "5px" }}>Interviews Completed</div>
+              </div>
+              <div style={{ backgroundColor: "#f8f9fa", padding: "15px", borderRadius: "8px" }}>
+                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#007bff" }}>0%</div>
+                <div style={{ fontSize: "12px", color: "#666", marginTop: "5px" }}>Average Score</div>
+              </div>
+              <div style={{ backgroundColor: "#f8f9fa", padding: "15px", borderRadius: "8px" }}>
+                <div style={{ fontSize: "24px", fontWeight: "bold", color: "#007bff" }}>0</div>
+                <div style={{ fontSize: "12px", color: "#666", marginTop: "5px" }}>Hours Practiced</div>
+              </div>
+            </div>
+            <button
+              style={{
+                padding: "12px 32px",
+                backgroundColor: "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                fontSize: "15px",
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "all 0.3s",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "#0056b3";
+                e.target.style.transform = "scale(1.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "#007bff";
+                e.target.style.transform = "scale(1)";
+              }}
+            >
+              Start Mock Interview
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   );

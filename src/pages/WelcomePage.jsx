@@ -34,7 +34,7 @@ export default function WelcomePage() {
               marginBottom: 10,
             }}
           >
-            PrepX
+            Evalo
           </div>
           <div
             style={{
@@ -52,7 +52,7 @@ export default function WelcomePage() {
         {/* Welcome Message */}
         <div style={{ marginBottom: 40 }}>
           <h2 style={{ fontSize: "28px", color: "#333", marginBottom: 10 }}>
-            Welcome to PrepX
+            Welcome to Evalo
           </h2>
           <p
             style={{
@@ -62,8 +62,7 @@ export default function WelcomePage() {
               marginBottom: 20,
             }}
           >
-            Have we met before? Please create an account to continue using this
-            app.
+            Have we met before? Please create an account to continue using Evalo.
           </p>
         </div>
 

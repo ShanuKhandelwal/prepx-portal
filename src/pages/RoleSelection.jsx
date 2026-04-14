@@ -40,7 +40,7 @@ export default function RoleSelection() {
       <div className="role-content">
         <div className="role-card">
           {/* Header */}
-          <h1 className="role-title">Welcome to PrepX! 🚀</h1>
+          <h1 className="role-title">Welcome to Evalo!! 🚀</h1>
           <p className="role-subtitle">
             Tell us about your experience level so we can personalize your learning journey
           </p>

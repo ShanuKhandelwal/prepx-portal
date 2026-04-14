@@ -119,9 +119,14 @@ export default function FresherDashboard() {
                     </div>
                     <button 
                       className="feature-action-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (feature.id === 1) navigate("/resume-building");
+                     onClick={(e) => {
+                      e.stopPropagation();
+
+                       if (feature.id === 1) {
+                      navigate("/resume-building");
+                      } else if (feature.id === 2) {
+                      navigate("/interview-workshop");
+                       }
                       }}
                     >
                       {feature.action}

@@ -1,8 +1,7 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import * as authService from "../services/authService";
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -12,8 +11,11 @@ export function AuthProvider({ children }) {
     // Check if user is logged in (stored in localStorage)
     (async () => {
       try {
-        const currentUser = await authService.getCurrentUser();
-        setUser(currentUser);
+        const storedUser = localStorage.getItem("user");
+
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
       } catch (err) {
         console.error("Error getting current user:", err);
         setUser(null);
@@ -26,12 +28,14 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     const userData = await authService.login(email, password);
     setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
     return userData;
   };
 
   const logout = async () => {
     await authService.logout();
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (

@@ -391,6 +391,7 @@ export default function ProfessionalDashboard() {
               </div>
             </div>
             <button
+              onClick={() => navigate("/sign-in")}
               style={{
                 padding: "12px 32px",
                 backgroundColor: "#007bff",

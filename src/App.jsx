@@ -1,166 +1,95 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "./auth/AuthProvider";
-import ProtectedRoute from "./auth/ProtectedRoute";
 
 import HomePage from "./pages/HomePage";
 import WelcomePage from "./pages/WelcomePage";
-import SignIn from "./pages/SignIn";
-import CreateAccount from "./pages/CreateAccount";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import RoleSelection from "./pages/RoleSelection";
-import FresherDashboard from "./pages/FresherDashboard";
-import ProfessionalDashboard from "./pages/ProfessionalDashboard";
-import ResumeBuildingGuide from "./pages/ResumeBuildingGuide";
-import PaymentScanner from "./pages/PaymentScanner";
-import ServicesPage from "./pages/ServicesPage";
 import UserDataPortal from "./pages/UserDataPortal";
 import LearningJourney from "./pages/LearningJourney";
 import ServicesShowcase from "./pages/ServicesShowcase";
 import FresherCourses from "./pages/FresherCourses";
 import ProfessionalCourses from "./pages/ProfessionalCourses";
-import NonITFresherDashboard from "./pages/NonITFresherDashboard";
-import NonITProfessionalDashboard from "./pages/NonITProfessionalDashboard";
 import NonITFresherCourses from "./pages/NonITFresherCourses";
 import NonITProfessionalCourses from "./pages/NonITProfessionalCourses";
+import TaskDescription from "./pages/TaskDescription";
+import ResumeBuildingTask from "./pages/Tasks/ResumeBuildingTask";
+import TechnicalInterviewTask from "./pages/Tasks/TechnicalInterviewTask";
+import LinkedInTask from "./pages/Tasks/LinkedInTask";
+import CareerRoadmapTask from "./pages/Tasks/CareerRoadmapTask";
+import JobSearchTask from "./pages/Tasks/JobSearchTask";
+import CourseEnrollment from "./pages/CourseEnrollment";
+import SystemDesignTask from "./pages/Tasks/SystemDesignTask";
+import AdvancedTechnicalTask from "./pages/Tasks/AdvancedTechnicalTask";
+import CareerAdvancementTask from "./pages/Tasks/CareerAdvancementTask";
+import TechLeadershipTask from "./pages/Tasks/TechLeadershipTask";
+import PaymentPage from "./pages/PaymentPage";
+import SuccessPage from "./pages/SuccessPage";
+import EmailTestPage from "./pages/EmailTestPage";
 
-import ResumeReview from "./pages/services/ResumeReview";
-import MockInterview from "./pages/services/MockInterview";
-import InterviewPractice from "./pages/services/InterviewPractice";
-import CommunicationSkills from "./pages/services/CommunicationSkills";
 import CandidateTypeIT from "./pages/CandidateTypeIT";
 import CandidateTypeNonIT from "./pages/CandidateTypeNonIT";
+import FresherInterviewTypes from "./pages/FresherInterviewTypes";
+import ProfessionalInterviewTypes from "./pages/ProfessionalInterviewTypes";
+import NonITFresherInterviewTypes from "./pages/NonITFresherInterviewTypes";
+import NonITProfessionalInterviewTypes from "./pages/NonITProfessionalInterviewTypes";
 
 export default function App() {
   return (
     <div className="app-bg">
       <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            {/* ✅ First page -> Home */}
-            <Route path="/" element={<HomePage />} />
+        <Routes>
+          {/* ✅ First page -> Home */}
+          <Route path="/" element={<HomePage />} />
 
-            {/* Candidate Type Pages */}
-            <Route path="/candidate-type/it" element={<CandidateTypeIT />} />
-            <Route path="/candidate-type/non-it" element={<CandidateTypeNonIT />} />
+          {/* Candidate Type Pages */}
+          <Route path="/candidate-type/it" element={<CandidateTypeIT />} />
+          <Route path="/candidate-type/non-it" element={<CandidateTypeNonIT />} />
 
-            {/* Public */}
-            <Route path="/welcome" element={<WelcomePage />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/create-account" element={<CreateAccount />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/data" element={<UserDataPortal />} />
+          {/* Public Pages */}
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/data" element={<UserDataPortal />} />
 
-            {/* Protected */}
-            <Route
-              path="/register"
-              element={
-                <ProtectedRoute>
-                  <RoleSelection />
-                </ProtectedRoute>
-              }
-            />
+          {/* Learning Journey */}
+          <Route path="/learning-journey" element={<LearningJourney />} />
 
-            <Route
-              path="/fresher"
-              element={
-                <ProtectedRoute>
-                  <FresherDashboard />
-                </ProtectedRoute>
-              }
-            />
+          {/* Services Showcase */}
+          <Route path="/services-showcase" element={<ServicesShowcase />} />
 
-            <Route
-              path="/professional"
-              element={
-                <ProtectedRoute>
-                  <ProfessionalDashboard />
-                </ProtectedRoute>
-              }
-            />
+          {/* Course Pages */}
+          <Route path="/fresher-courses" element={<FresherCourses />} />
+          <Route path="/professional-courses" element={<ProfessionalCourses />} />
+          <Route path="/non-it-fresher-courses" element={<NonITFresherCourses />} />
+          <Route path="/non-it-professional-courses" element={<NonITProfessionalCourses />} />
 
-            <Route
-              path="/resume-building"
-              element={
-                <ProtectedRoute>
-                  <ResumeBuildingGuide />
-                </ProtectedRoute>
-              }
-            />
+          {/* Task Description Pages */}
+          <Route path="/task/:taskId" element={<TaskDescription />} />
+          <Route path="/task/resume-building" element={<ResumeBuildingTask />} />
+          <Route path="/task/technical-interview" element={<TechnicalInterviewTask />} />
+          <Route path="/task/linkedin" element={<LinkedInTask />} />
+          <Route path="/task/career-roadmap" element={<CareerRoadmapTask />} />
+          <Route path="/task/job-search" element={<JobSearchTask />} />
+          <Route path="/task/system-design" element={<SystemDesignTask />} />
+          <Route path="/task/advanced-technical" element={<AdvancedTechnicalTask />} />
+          <Route path="/task/career-advancement" element={<CareerAdvancementTask />} />
+          <Route path="/task/tech-leadership" element={<TechLeadershipTask />} />
 
-            <Route
-              path="/payment-scanner"
-              element={
-                <ProtectedRoute>
-                  <PaymentScanner />
-                </ProtectedRoute>
-              }
-            />
+          {/* Course Enrollment Pages */}
+          <Route path="/enrollment/:courseId" element={<CourseEnrollment />} />
 
-            <Route
-              path="/services"
-              element={
-                <ProtectedRoute>
-                  <ServicesPage />
-                </ProtectedRoute>
-              }
-            />
+          {/* Interview Types Selection */}
+          <Route path="/fresher-interview-types" element={<FresherInterviewTypes />} />
+          <Route path="/professional-interview-types" element={<ProfessionalInterviewTypes />} />
+          <Route path="/non-it-fresher-interview-types" element={<NonITFresherInterviewTypes />} />
+          <Route path="/non-it-professional-interview-types" element={<NonITProfessionalInterviewTypes />} />
 
-            {/* Service pages */}
-            <Route
-              path="/services/resume-review"
-              element={
-                <ProtectedRoute>
-                  <ResumeReview />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/services/mock-interview"
-              element={
-                <ProtectedRoute>
-                  <MockInterview />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/services/interview-practice"
-              element={
-                <ProtectedRoute>
-                  <InterviewPractice />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/services/communication-skills"
-              element={
-                <ProtectedRoute>
-                  <CommunicationSkills />
-                </ProtectedRoute>
-              }
-            />
+          {/* Payment Routes */}
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/success" element={<SuccessPage />} />
 
-            {/* Learning Journey */}
-            <Route path="/learning-journey" element={<LearningJourney />} />
+          {/* Email Test Route */}
+          <Route path="/email-test" element={<EmailTestPage />} />
 
-            {/* Services Showcase */}
-            <Route path="/services-showcase" element={<ServicesShowcase />} />
-
-            {/* New Course Pages */}
-            <Route path="/fresher-courses" element={<FresherCourses />} />
-            <Route path="/professional-courses" element={<ProfessionalCourses />} />
-            <Route path="/non-it-fresher-courses" element={<NonITFresherCourses />} />
-            <Route path="/non-it-professional-courses" element={<NonITProfessionalCourses />} />
-
-            {/* Non-IT Dashboards */}
-            <Route path="/non-it-fresher-dashboard" element={<NonITFresherDashboard />} />
-            <Route path="/non-it-professional-dashboard" element={<NonITProfessionalDashboard />} />
-
-            {/* Fallback */}
-            <Route path="*" element={<Navigate to="/login" replace />} />
-          </Routes>
-        </AuthProvider>
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

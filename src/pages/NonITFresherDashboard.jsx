@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NonITFresherDashboard() {
+  const navigate = useNavigate();
+
   const quickStats = [
     { label: "Courses Completed", value: "0", icon: "📚" },
     { label: "Hours Learned", value: "0", icon: "⏱️" },
@@ -245,6 +247,7 @@ export default function NonITFresherDashboard() {
                 </div>
               </div>
               <button
+                onClick={() => navigate("/sign-in")}
                 style={{
                   padding: "12px 32px",
                   backgroundColor: "#28a745",

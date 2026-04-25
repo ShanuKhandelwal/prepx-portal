@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import "../styles/FresherDashboard.css";
 
@@ -197,6 +197,7 @@ export default function FresherDashboard() {
               </div>
             </div>
             <button
+              onClick={() => navigate("/sign-in")}
               style={{
                 padding: "12px 32px",
                 backgroundColor: "#007bff",

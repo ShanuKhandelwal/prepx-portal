@@ -1,8 +1,40 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import UserInfoModal from "../components/UserInfoModal";
+import "./FresherCourses.css";
 
 export default function FresherCourses() {
   const [selectedType, setSelectedType] = useState("individual");
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const selectedInterviewType = location.state?.interviewType || "Technical Interview";
+
+  // Individual course state
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [showScheduling, setShowScheduling] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("today");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [interviewDetails, setInterviewDetails] = useState(null);
+  const [showPayment, setShowPayment] = useState(false);
+  const [paymentComplete, setPaymentComplete] = useState(false);
+  const [paymentScreenshot, setPaymentScreenshot] = useState(null);
+  const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
+
+  // Package state
+  const [showPackageScheduling, setShowPackageScheduling] = useState(false);
+  const [packageSelectedDate, setPackageSelectedDate] = useState("today");
+  const [packageSelectedTime, setPackageSelectedTime] = useState("");
+  const [packageDetails, setPackageDetails] = useState(null);
+  const [showPackagePayment, setShowPackagePayment] = useState(false);
+  const [packagePaymentComplete, setPackagePaymentComplete] = useState(false);
+  const [packagePaymentScreenshot, setPackagePaymentScreenshot] = useState(null);
+  const [showPackagePaymentConfirmation, setShowPackagePaymentConfirmation] = useState(false);
+  const [showPackagePaymentModal, setShowPackagePaymentModal] = useState(false);
+
+  const [userInfo, setUserInfo] = useState(null);
+  const [showUserInfoModal, setShowUserInfoModal] = useState(false);
+  const [userInfoType, setUserInfoType] = useState("individual");
 
   const fresherServices = [
     {
@@ -10,275 +42,857 @@ export default function FresherCourses() {
       icon: "📝",
       title: "Resume Building Guide",
       description: "Learn to craft a winning resume",
-      details:
-        "Create a professional resume that highlights your skills and experience. Learn formatting tips, key sections, and how to optimize for ATS systems.",
-      color: "#ff6b6b",
-      price: "$29",
+      details: "Create a professional resume that highlights your skills and experience. Learn formatting tips, key sections, and how to optimize for ATS systems.",
+      price: 200,
     },
     {
       id: 2,
       icon: "💬",
       title: "Technical Interview Preparation",
       description: "Master coding and interview fundamentals",
-      details:
-        "Master common interview questions, coding problems, body language, and techniques to make a great first impression with your potential employers.",
-      color: "#4ecdc4",
-      price: "$39",
+      details: "Master common interview questions, coding problems, body language, and techniques to make a great first impression with your potential employers.",
+      price: 200,
     },
     {
       id: 3,
       icon: "🔄",
       title: "LinkedIn & Personal Branding",
       description: "Build your professional presence",
-      details:
-        "Optimize your LinkedIn profile, create a personal brand, and network effectively to attract recruiters and potential employers.",
-      color: "#45b7d1",
-      price: "$24",
+      details: "Optimize your LinkedIn profile, create a personal brand, and network effectively to attract recruiters and potential employers.",
+      price: 200,
     },
     {
       id: 4,
       icon: "📊",
       title: "Career Roadmap",
       description: "Plan your tech journey",
-      details:
-        "Understand different career paths in tech, set realistic goals, and create a strategic plan to achieve your career objectives.",
-      color: "#ffa502",
-      price: "$34",
+      details: "Understand different career paths in tech, set realistic goals, and create a strategic plan to achieve your career objectives.",
+      price: 200,
     },
     {
       id: 5,
       icon: "🎯",
       title: "Job Search Strategy",
       description: "Find your first opportunity",
-      details:
-        "Learn effective job search strategies, where to find opportunities, how to network, and tips for landing interviews.",
-      color: "#9b59b6",
-      price: "$29",
+      details: "Learn effective job search strategies, where to find opportunities, how to network, and tips for landing interviews.",
+      price: 200,
     },
   ];
 
-  const totalIndividualPrice = 155;
-  const packagePrice = 99;
-  const savings = totalIndividualPrice - packagePrice;
+  const packageData = {
+    title: "Complete Fresher Package",
+    description: "Everything you need to land your first tech job",
+    originalPrice: 1000,
+    discount: 200,
+    finalPrice: 800,
+    courses: [
+      "Resume Building Guide",
+      "Technical Interview Preparation",
+      "LinkedIn & Personal Branding",
+      "Career Roadmap",
+      "Job Search Strategy",
+    ],
+    benefits: [
+      "5 Complete Courses",
+      "Lifetime Access",
+      "Expert Guidance",
+      "Interview Preparation",
+      "Job Search Support",
+    ],
+  };
+
+  const TIME_SLOTS = ["12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM"];
+
+  const getDateLabel = () => {
+    const today = new Date();
+    if (selectedDate === "today") {
+      return today.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    } else {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      return tomorrow.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    }
+  };
+
+  const getPackageDateLabel = () => {
+    const today = new Date();
+    if (packageSelectedDate === "today") {
+      return today.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    } else {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      return tomorrow.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    }
+  };
+
+  const handleEnroll = (service) => {
+    setSelectedCourse(service);
+    setUserInfoType("individual");
+    setShowUserInfoModal(true);
+  };
+
+  const handlePackageSchedule = () => {
+    setUserInfoType("package");
+    setShowUserInfoModal(true);
+  };
+
+  const handleUserInfoSubmit = (formData) => {
+    setUserInfo(formData);
+    setShowUserInfoModal(false);
+    
+    if (userInfoType === "individual") {
+      setSelectedDate("today");
+      setSelectedTime("");
+      setPaymentScreenshot(null);
+      setShowScheduling(true);
+    } else {
+      setPackageSelectedDate("today");
+      setPackageSelectedTime("");
+      setPackagePaymentScreenshot(null);
+      setShowPackageScheduling(true);
+    }
+  };
+
+  const handleScheduleSubmit = () => {
+    if (!selectedTime) {
+      alert("Please select a time slot");
+      return;
+    }
+    setInterviewDetails({
+      date: selectedDate,
+      dateLabel: getDateLabel(),
+      time: selectedTime,
+    });
+    setShowScheduling(false);
+  };
+
+  const handlePackageScheduleSubmit = () => {
+    if (!packageSelectedTime) {
+      alert("Please select a time slot");
+      return;
+    }
+    setPackageDetails({
+      dateLabel: getPackageDateLabel(),
+      time: packageSelectedTime,
+    });
+    setShowPackageScheduling(false);
+  };
+
+  const handleScreenshotUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPaymentScreenshot(reader.result);
+        setShowPaymentConfirmation(false);
+        setTimeout(() => {
+          setPaymentComplete(true);
+          // Send email after payment confirmation
+          sendEnrollmentEmail("individual");
+        }, 3000);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handlePackageScreenshotUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPackagePaymentScreenshot(reader.result);
+        setShowPackagePaymentConfirmation(false);
+        setTimeout(() => {
+          setPackagePaymentComplete(true);
+          // Send email after payment confirmation
+          sendEnrollmentEmail("package");
+        }, 3000);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // New function to send enrollment email
+  const sendEnrollmentEmail = async (type) => {
+    try {
+      const courseTitle = type === "individual" ? selectedCourse?.title : packageData?.title;
+      const coursePrice = type === "individual" ? selectedCourse?.price : packageData?.finalPrice;
+      const dateLabel = type === "individual" ? interviewDetails?.dateLabel : packageDetails?.dateLabel;
+      const timeSlot = type === "individual" ? interviewDetails?.time : packageDetails?.time;
+
+      const enrollmentData = {
+        fullName: userInfo?.fullName || "",
+        email: userInfo?.email || "",
+        contactNumber: userInfo?.phone || "",
+        courseId: courseTitle || "",
+        coursePrice: coursePrice || "",
+        interviewDate: dateLabel || "",
+        interviewTime: timeSlot || "",
+      };
+
+      console.log("📧 [ENROLLMENT] Sending enrollment email...");
+      console.log("📧 [ENROLLMENT] Full Data:", enrollmentData);
+
+      if (!enrollmentData.fullName || !enrollmentData.email) {
+        console.error("❌ [ENROLLMENT] Missing user info");
+        return;
+      }
+
+      const response = await fetch("http://localhost:5001/api/send-enrollment-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(enrollmentData),
+      });
+
+      const responseData = await response.json();
+      console.log("📊 [ENROLLMENT] Response:", responseData);
+
+      if (response.ok && responseData.success) {
+        console.log("✅ [ENROLLMENT] Email sent successfully!");
+        console.log("✅ [ENROLLMENT] Google Meet Link:", responseData.googleMeetLink);
+      } else {
+        console.error("❌ [ENROLLMENT] Email send failed:", responseData);
+      }
+    } catch (error) {
+      console.error("❌ [ENROLLMENT] Error sending email:", error);
+    }
+  };
+
+  const handleConfirm = () => {
+    localStorage.setItem(`courseEnrollment_${selectedCourse.id}`, JSON.stringify({
+      ...interviewDetails,
+      userInfo,
+    }));
+    setPaymentComplete(false);
+    setSelectedCourse(null);
+    setSelectedDate("today");
+    setSelectedTime("");
+    setInterviewDetails(null);
+    setShowPayment(false);
+    setPaymentScreenshot(null);
+    navigate("/");
+  };
+
+  const handlePackageConfirm = () => {
+    localStorage.setItem(`packageEnrollment_fresher`, JSON.stringify({
+      type: "fresher",
+      enrolledAt: new Date().toISOString(),
+      price: packageData.finalPrice,
+      ...packageDetails,
+      userInfo,
+    }));
+    setPackagePaymentComplete(false);
+    setPackageDetails(null);
+    setPackageSelectedDate("today");
+    setPackageSelectedTime("");
+    setShowPackagePayment(false);
+    setPackagePaymentScreenshot(null);
+    navigate("/");
+  };
+
+  const handlePackageProceedToPayment = () => {
+    // Show loading first for 2 seconds
+    setTimeout(() => {
+      setShowPackagePaymentModal(true);
+    }, 2000);
+  };
+
+  if (paymentComplete) {
+    return (
+      <div className="enrollment-success-container">
+        <div className="success-card">
+          <div className="success-icon">✓</div>
+          <h2>Enrollment Successful!</h2>
+          <p className="success-message">You've been enrolled in {selectedCourse.title}</p>
+          
+          <div className="enrollment-details">
+            <h3>Your Information</h3>
+            <div className="detail-item">
+              <span className="detail-label">👤 Name:</span>
+              <span className="detail-value">{userInfo?.fullName}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">📧 Email:</span>
+              <span className="detail-value">{userInfo?.email}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">📱 Contact:</span>
+              <span className="detail-value">{userInfo?.phone}</span>
+            </div>
+
+            <h3 style={{ marginTop: "20px" }}>Your Schedule</h3>
+            <div className="detail-item">
+              <span className="detail-label">📅 Date:</span>
+              <span className="detail-value">{interviewDetails.dateLabel}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">🕐 Time:</span>
+              <span className="detail-value">{interviewDetails.time}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">💰 Amount Paid:</span>
+              <span className="detail-value">₹{selectedCourse.price}</span>
+            </div>
+
+            <div className="detail-item" style={{ marginTop: "10px", borderTop: "1px solid #ddd", paddingTop: "10px" }}>
+              <p style={{ fontSize: "12px", color: "#666", margin: "5px 0" }}>
+                ✅ Confirmation email sent to {userInfo?.email}
+              </p>
+              <p style={{ fontSize: "12px", color: "#666", margin: "5px 0" }}>
+                ✅ Admin notification sent to shanu.khandelwal121@gmail.com
+              </p>
+            </div>
+          </div>
+
+          <button className="btn-continue" onClick={handleConfirm}>
+            Continue
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (packagePaymentComplete) {
+    return (
+      <div className="enrollment-success-container">
+        <div className="success-card">
+          <div className="success-icon">✓</div>
+          <h2>Package Purchase Successful!</h2>
+          <p className="success-message">You've purchased {packageData.title}</p>
+          
+          <div className="enrollment-details">
+            <h3>Your Information</h3>
+            <div className="detail-item">
+              <span className="detail-label">👤 Name:</span>
+              <span className="detail-value">{userInfo?.fullName}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">📧 Email:</span>
+              <span className="detail-value">{userInfo?.email}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">📱 Contact:</span>
+              <span className="detail-value">{userInfo?.phone}</span>
+            </div>
+
+            <h3 style={{ marginTop: "20px" }}>Purchase Details</h3>
+            <div className="detail-item">
+              <span className="detail-label">Package:</span>
+              <span className="detail-value">{packageData.title}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">📅 Date:</span>
+              <span className="detail-value">{packageDetails.dateLabel}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">🕐 Time:</span>
+              <span className="detail-value">{packageDetails.time}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Amount Paid:</span>
+              <span className="detail-value">₹{packageData.finalPrice}</span>
+            </div>
+
+            <div className="detail-item" style={{ marginTop: "10px", borderTop: "1px solid #ddd", paddingTop: "10px" }}>
+              <p style={{ fontSize: "12px", color: "#666", margin: "5px 0" }}>
+                ✅ Confirmation email sent to {userInfo?.email}
+              </p>
+              <p style={{ fontSize: "12px", color: "#666", margin: "5px 0" }}>
+                ✅ Admin notification sent to shanu.khandelwal121@gmail.com
+              </p>
+            </div>
+          </div>
+
+          <button className="btn-continue" onClick={handlePackageConfirm}>
+            Continue
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", display: "flex", flexDirection: "column" }}>
-      {/* Navigation Bar */}
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 40px", backgroundColor: "#f8f9fa", borderBottom: "1px solid #e9ecef" }}>
-        <Link to="/" style={{ fontSize: "28px", fontWeight: "bold", color: "#007bff", textDecoration: "none", cursor: "pointer" }}>
-          Evalo
-        </Link>
-        <Link to="/candidate-type/it" style={{ padding: "8px 16px", backgroundColor: "#f8f9fa", color: "#007bff", textDecoration: "none", borderRadius: "6px", border: "1px solid #007bff", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>
-          ← Back
-        </Link>
-      </nav>
-
-      {/* Header */}
-      <div style={{ padding: "40px", textAlign: "center", backgroundColor: "linear-gradient(135deg, #007bff 0%, #0056b3 100%)", backgroundImage: "linear-gradient(135deg, #007bff 0%, #0056b3 100%)", color: "white" }}>
-        <h1 style={{ fontSize: "38px", fontWeight: "bold", marginBottom: "10px" }}>Fresher Learning Path 👨‍🎓</h1>
-        <p style={{ fontSize: "16px", opacity: 0.95 }}>Essential courses to kickstart your tech career</p>
+    <div className="fresher-courses-wrapper">
+      <div className="header-section">
+        <div className="logo-and-back">
+          <h2 className="logo">Evalo</h2>
+          <button className="btn-back" onClick={() => navigate(-1)}>
+            ← Back
+          </button>
+        </div>
       </div>
 
-      {/* Selection Buttons */}
-      <div style={{ padding: "40px", textAlign: "center", backgroundColor: "#f8f9fa", borderBottom: "1px solid #e9ecef" }}>
-        <h2 style={{ fontSize: "20px", fontWeight: "bold", color: "#333", marginBottom: "20px" }}>How would you like to learn?</h2>
-        <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button
-            onClick={() => setSelectedType("individual")}
-            style={{
-              padding: "12px 32px",
-              backgroundColor: selectedType === "individual" ? "#007bff" : "white",
-              color: selectedType === "individual" ? "white" : "#007bff",
-              border: "2px solid #007bff",
-              borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: "600",
-              cursor: "pointer",
-              transition: "all 0.3s",
-            }}
-            onMouseEnter={(e) => {
-              if (selectedType !== "individual") e.target.style.backgroundColor = "#e8f4ff";
-            }}
-            onMouseLeave={(e) => {
-              if (selectedType !== "individual") e.target.style.backgroundColor = "white";
-            }}
-          >
+      <div className="page-title-section">
+        <h1>🎓 IT Fresher Learning Path</h1>
+        <p>Essential courses to kickstart your tech career</p>
+      </div>
+
+      <div className="interview-type-section">
+        <div className="interview-type-card">
+          <p className="interview-label">Your Selected Interview Type:</p>
+          <p className="interview-type">{selectedInterviewType}</p>
+        </div>
+      </div>
+
+      <div className="learning-options-section">
+        <p className="options-label">How would you like to learn?</p>
+        <div className="toggle-section">
+          <button className={`toggle-btn ${selectedType === "individual" ? "active" : ""}`} onClick={() => setSelectedType("individual")}>
             📌 Individual Courses
           </button>
-          <button
-            onClick={() => setSelectedType("package")}
-            style={{
-              padding: "12px 32px",
-              backgroundColor: selectedType === "package" ? "#28a745" : "white",
-              color: selectedType === "package" ? "white" : "#28a745",
-              border: "2px solid #28a745",
-              borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: "600",
-              cursor: "pointer",
-              transition: "all 0.3s",
-            }}
-            onMouseEnter={(e) => {
-              if (selectedType !== "package") e.target.style.backgroundColor = "#e8f5e9";
-            }}
-            onMouseLeave={(e) => {
-              if (selectedType !== "package") e.target.style.backgroundColor = "white";
-            }}
-          >
+          <button className={`toggle-btn ${selectedType === "package" ? "active" : ""}`} onClick={() => setSelectedType("package")}>
             🎁 Complete Package
           </button>
         </div>
       </div>
 
-      {/* Content */}
-      <div style={{ flex: 1, padding: "60px 40px", backgroundColor: "#f8f9fa" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          {selectedType === "individual" && (
-            <div>
-              <h2 style={{ fontSize: "28px", fontWeight: "bold", color: "#333", marginBottom: "10px", textAlign: "center" }}>
-                Choose Your Courses
-              </h2>
-              <p style={{ fontSize: "14px", color: "#666", marginBottom: "40px", textAlign: "center" }}>
-                Pick the courses that match your needs - 5 essential courses for freshers
-              </p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "25px", marginBottom: "40px" }}>
-                {fresherServices.map((service) => (
-                  <div
-                    key={service.id}
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "12px",
-                      boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
-                      overflow: "hidden",
-                      transition: "all 0.3s",
-                      border: "2px solid transparent",
-                      display: "flex",
-                      flexDirection: "column",
-                      padding: "25px",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-8px)";
-                      e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.15)";
-                      e.currentTarget.style.borderColor = service.color;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.08)";
-                      e.currentTarget.style.borderColor = "transparent";
-                    }}
-                  >
-                    <div style={{ fontSize: "40px", marginBottom: "15px" }}>{service.icon}</div>
-                    <h3 style={{ fontSize: "18px", fontWeight: "bold", color: "#333", marginBottom: "8px" }}>{service.title}</h3>
-                    <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px", flex: 1 }}>{service.description}</p>
-                    <p style={{ fontSize: "11px", color: "#888", marginBottom: "15px", lineHeight: "1.5" }}>{service.details}</p>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <span style={{ fontSize: "18px", fontWeight: "bold", color: service.color }}>{service.price}</span>
-                      <button
-                        style={{
-                          padding: "8px 16px",
-                          backgroundColor: service.color,
-                          color: "white",
-                          border: "none",
-                          borderRadius: "6px",
-                          fontSize: "13px",
-                          fontWeight: "600",
-                          cursor: "pointer",
-                          transition: "all 0.3s",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.opacity = "0.9";
-                          e.target.style.transform = "scale(1.05)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.opacity = "1";
-                          e.target.style.transform = "scale(1)";
-                        }}
-                      >
-                        Enroll
-                      </button>
-                    </div>
-                  </div>
-                ))}
+      {selectedType === "individual" ? (
+        <div className="courses-section">
+          <div className="courses-header">
+            <h2>Choose Your Courses</h2>
+            <p>Pick the courses that match your needs - 5 essential courses for freshers</p>
+          </div>
+
+          <div className="services-grid">
+            {fresherServices.map((service) => (
+              <div key={service.id} className={`service-card service-card-${service.id}`}>
+                <div className="service-top">
+                  <div className="service-icon">{service.icon}</div>
+                  <h3>{service.title}</h3>
+                  <p className="service-description">{service.description}</p>
+                </div>
+                <p className="service-details">{service.details}</p>
+                <div className="service-footer">
+                  <span className="service-price">₹{service.price}</span>
+                  <button className="btn-enroll" onClick={() => handleEnroll(service)}>
+                    Enroll
+                  </button>
+                </div>
               </div>
-              <div style={{ backgroundColor: "#f0f8ff", borderRadius: "12px", padding: "25px", textAlign: "center", border: "2px solid #007bff" }}>
-                <h3 style={{ fontSize: "18px", fontWeight: "bold", color: "#333", marginBottom: "10px" }}>Individual Courses Total</h3>
-                <p style={{ fontSize: "28px", fontWeight: "bold", color: "#007bff" }}>${totalIndividualPrice}</p>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="package-section">
+          <div className="package-card">
+            <div className="package-header">
+              <h2>Complete Fresher Package</h2>
+              <p>Everything you need to land your first tech job</p>
+            </div>
+
+            <div className="pricing-box">
+              <div className="price-item original">
+                <span>Original Price</span>
+                <span>₹{packageData.originalPrice}</span>
+              </div>
+              <div className="price-item savings">
+                <span>SAVE</span>
+                <span>₹{packageData.discount}</span>
+              </div>
+              <div className="price-item final">
+                <span>Your Price</span>
+                <span>₹{packageData.finalPrice}</span>
               </div>
             </div>
-          )}
 
-          {selectedType === "package" && (
-            <div>
-              <h2 style={{ fontSize: "28px", fontWeight: "bold", color: "#333", marginBottom: "40px", textAlign: "center" }}>Complete Learning Package 🎁</h2>
-              <div style={{ maxWidth: "900px", margin: "0 auto 50px", backgroundColor: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", backgroundImage: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", borderRadius: "16px", padding: "50px 40px", color: "white", boxShadow: "0 10px 40px rgba(102, 126, 234, 0.4)", textAlign: "center" }}>
-                <h3 style={{ fontSize: "36px", fontWeight: "bold", marginBottom: "15px" }}>Everything You Need</h3>
-                <p style={{ fontSize: "16px", opacity: 0.95, marginBottom: "30px" }}>All 5 courses + exclusive bonuses</p>
+            <div className="package-includes">
+              <h3>📚 Included Courses:</h3>
+              <ul>
+                {packageData.courses.map((course, index) => (
+                  <li key={index}>✓ {course}</li>
+                ))}
+              </ul>
+            </div>
 
-                <div style={{ backgroundColor: "rgba(0, 0, 0, 0.2)", borderRadius: "12px", padding: "25px", marginBottom: "30px" }}>
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "20px", marginBottom: "15px" }}>
-                    <div>
-                      <p style={{ fontSize: "14px", opacity: 0.8, marginBottom: "5px" }}>Regular Price</p>
-                      <p style={{ fontSize: "24px", fontWeight: "bold", textDecoration: "line-through", opacity: 0.8 }}>${totalIndividualPrice}</p>
-                    </div>
-                    <div style={{ fontSize: "28px", opacity: 0.6 }}>→</div>
-                    <div>
-                      <p style={{ fontSize: "14px", opacity: 0.8, marginBottom: "5px" }}>Package Price</p>
-                      <p style={{ fontSize: "36px", fontWeight: "bold" }}>${packagePrice}</p>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: "16px", fontWeight: "bold", color: "#4ade80" }}>Save ${savings} (36% OFF)</p>
-                </div>
+            <div className="package-includes">
+              <h3>🎁 Benefits:</h3>
+              <ul>
+                {packageData.benefits.map((benefit, index) => (
+                  <li key={index}>⭐ {benefit}</li>
+                ))}
+              </ul>
+            </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "15px", marginBottom: "30px" }}>
-                  {fresherServices.map((service) => (
-                    <div key={service.id} style={{ backgroundColor: "rgba(255, 255, 255, 0.15)", borderRadius: "10px", padding: "15px", backdropFilter: "blur(10px)", border: "1px solid rgba(255, 255, 255, 0.3)" }}>
-                      <div style={{ fontSize: "32px", marginBottom: "8px" }}>{service.icon}</div>
-                      <p style={{ fontSize: "12px", fontWeight: "600", lineHeight: "1.4" }}>{service.title}</p>
-                    </div>
-                  ))}
-                </div>
+            <button className="btn-buy-package" onClick={handlePackageSchedule}>
+              Schedule & Purchase - ₹{packageData.finalPrice}
+            </button>
+          </div>
+        </div>
+      )}
 
-                <div style={{ backgroundColor: "rgba(0, 0, 0, 0.2)", borderRadius: "12px", padding: "25px", marginBottom: "30px", textAlign: "left" }}>
-                  <h4 style={{ fontSize: "16px", fontWeight: "bold", marginBottom: "15px", textAlign: "center" }}>Additional Benefits</h4>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px" }}>
-                    <div>✅ Lifetime Access</div>
-                    <div>✅ Expert Mentorship</div>
-                    <div>✅ Mock Interviews</div>
-                    <div>✅ Job Placement Support</div>
-                    <div>✅ Certificate Included</div>
-                    <div>✅ Community Access</div>
-                  </div>
-                </div>
+      <UserInfoModal
+        isOpen={showUserInfoModal}
+        onClose={() => setShowUserInfoModal(false)}
+        onSubmit={handleUserInfoSubmit}
+        courseTitle={userInfoType === "individual" ? selectedCourse?.title : packageData.title}
+      />
 
-                <button
-                  style={{
-                    width: "100%",
-                    padding: "18px 32px",
-                    backgroundColor: "white",
-                    color: "#667eea",
-                    border: "none",
-                    borderRadius: "8px",
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    transition: "all 0.3s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = "scale(1.02)";
-                    e.target.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = "scale(1)";
-                    e.target.style.boxShadow = "none";
-                  }}
-                >
-                  Get Complete Package
+      {/* Individual Course Scheduling Modal */}
+      {showScheduling && (
+        <div className="modal-overlay" onClick={() => setShowScheduling(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>📅 Schedule Your Session</h2>
+            <div className="scheduling-section">
+              <label>Select Date:</label>
+              <div className="date-options">
+                <button className={`date-btn ${selectedDate === "today" ? "active" : ""}`} onClick={() => setSelectedDate("today")}>
+                  Today
+                </button>
+                <button className={`date-btn ${selectedDate === "tomorrow" ? "active" : ""}`} onClick={() => setSelectedDate("tomorrow")}>
+                  Tomorrow
                 </button>
               </div>
             </div>
-          )}
+            <div className="scheduling-section">
+              <label>Select Time Slot (12 PM - 5 PM):</label>
+              <div className="time-slots">
+                {TIME_SLOTS.map((time) => (
+                  <button key={time} className={`time-slot ${selectedTime === time ? "active" : ""}`} onClick={() => setSelectedTime(time)}>
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="modal-actions">
+              <button className="btn-cancel" onClick={() => setShowScheduling(false)}>
+                Cancel
+              </button>
+              <button className="btn-confirm" onClick={handleScheduleSubmit} disabled={!selectedTime}>
+                Confirm
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Individual Course Session Details Modal */}
+      {interviewDetails && !showPayment && (
+        <div className="enrollment-modal-wrapper">
+          <div className="enrollment-modal">
+            <button className="btn-close" onClick={() => setInterviewDetails(null)}>✕</button>
+            <div className="session-details">
+              <h2>📅 Your Session Details</h2>
+              <div className="detail-card">
+                <span className="detail-icon">📅</span>
+                <div className="detail-content">
+                  <span className="detail-label">Date</span>
+                  <span className="detail-value">{interviewDetails.dateLabel}</span>
+                </div>
+              </div>
+              <div className="detail-card">
+                <span className="detail-icon">🕐</span>
+                <div className="detail-content">
+                  <span className="detail-label">Time</span>
+                  <span className="detail-value">{interviewDetails.time}</span>
+                </div>
+              </div>
+              <div className="detail-card">
+                <span className="detail-icon">💰</span>
+                <div className="detail-content">
+                  <span className="detail-label">Amount</span>
+                  <span className="detail-value">₹{selectedCourse.price}</span>
+                </div>
+              </div>
+            </div>
+            <div className="action-buttons">
+              <button className="btn-change" onClick={() => { setInterviewDetails(null); setShowScheduling(true); }}>
+                ← Change Schedule
+              </button>
+              <button className="btn-proceed" onClick={() => setShowPayment(true)}>
+                Proceed to Payment →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Individual Course Payment Modal */}
+      {showPayment && !showPaymentConfirmation && (
+        <div className="enrollment-modal-wrapper" style={{ zIndex: 1000 }}>
+          <div className="payment-modal">
+            <button className="btn-close" onClick={() => setShowPayment(false)}>✕</button>
+            <h2>💳 Complete Payment</h2>
+            <div className="payment-summary">
+              <div className="summary-row">
+                <span>Course</span>
+                <span>{selectedCourse.title}</span>
+              </div>
+              <div className="summary-row">
+                <span>Session Date</span>
+                <span>{interviewDetails.dateLabel}</span>
+              </div>
+              <div className="summary-row">
+                <span>Session Time</span>
+                <span>{interviewDetails.time}</span>
+              </div>
+              <div className="summary-divider"></div>
+              <div className="summary-total">
+                <span>Total Amount</span>
+                <span>₹{selectedCourse.price}</span>
+              </div>
+            </div>
+            <div className="qr-section">
+              <h3>📱 Scan to pay via UPI</h3>
+              <div className="qr-box">
+                <img src="/qr-code.png" alt="UPI Payment QR" className="qr-code" />
+              </div>
+              <p className="upi-id">UPI ID: evalo@upi</p>
+            </div>
+            <div className="payment-buttons">
+              <button className="btn-back-payment" onClick={() => setShowPayment(false)}>
+                ← Back
+              </button>
+              <button className="btn-done" onClick={() => setShowPaymentConfirmation(true)}>
+                Payment Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Individual Course Payment Confirmation Modal */}
+      {showPaymentConfirmation && (
+        <div className="enrollment-modal-wrapper" style={{ zIndex: 1001 }}>
+          <div className="payment-confirmation-modal">
+            <button className="btn-close" onClick={() => setShowPaymentConfirmation(false)}>✕</button>
+            <h2>✅ Payment Confirmation</h2>
+            
+            <div className="confirmation-content">
+              <p className="confirmation-text">Have you successfully completed the payment?</p>
+              <p className="confirmation-subtitle">Please upload your payment screenshot</p>
+              
+              <div className="screenshot-upload-section">
+                <label htmlFor="screenshot-input" className="upload-label">
+                  <div className="upload-area">
+                    {paymentScreenshot ? (
+                      <div className="screenshot-preview">
+                        <img src={paymentScreenshot} alt="Payment Screenshot" />
+                        <p className="preview-text">✓ Screenshot uploaded</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="upload-icon">📸</div>
+                        <p className="upload-text">Click to upload screenshot</p>
+                        <p className="upload-subtext">or drag and drop</p>
+                      </>
+                    )}
+                  </div>
+                </label>
+                <input
+                  id="screenshot-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleScreenshotUpload}
+                  style={{ display: 'none' }}
+                />
+              </div>
+            </div>
+
+            <div className="confirmation-buttons">
+              <button className="btn-cancel-confirmation" onClick={() => setShowPaymentConfirmation(false)}>
+                ← Back
+              </button>
+              <button 
+                className="btn-submit-screenshot" 
+                disabled={!paymentScreenshot}
+              >
+                Submit Screenshot
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Package Scheduling Modal */}
+      {showPackageScheduling && (
+        <div className="modal-overlay" onClick={() => setShowPackageScheduling(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>📅 Schedule Your Session</h2>
+            <div className="scheduling-section">
+              <label>Select Date:</label>
+              <div className="date-options">
+                <button className={`date-btn ${packageSelectedDate === "today" ? "active" : ""}`} onClick={() => setPackageSelectedDate("today")}>
+                  Today
+                </button>
+                <button className={`date-btn ${packageSelectedDate === "tomorrow" ? "active" : ""}`} onClick={() => setPackageSelectedDate("tomorrow")}>
+                  Tomorrow
+                </button>
+              </div>
+            </div>
+            <div className="scheduling-section">
+              <label>Select Time Slot (12 PM - 5 PM):</label>
+              <div className="time-slots">
+                {TIME_SLOTS.map((time) => (
+                  <button key={time} className={`time-slot ${packageSelectedTime === time ? "active" : ""}`} onClick={() => setPackageSelectedTime(time)}>
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="modal-actions">
+              <button className="btn-cancel" onClick={() => setShowPackageScheduling(false)}>
+                Cancel
+              </button>
+              <button className="btn-confirm" onClick={handlePackageScheduleSubmit} disabled={!packageSelectedTime}>
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Package Session Details Modal */}
+      {packageDetails && !showPackagePayment && (
+        <div className="enrollment-modal-wrapper">
+          <div className="enrollment-modal">
+            <button className="btn-close" onClick={() => setPackageDetails(null)}>✕</button>
+            <div className="session-details">
+              <h2>📅 Your Session Details</h2>
+              <div className="detail-card">
+                <span className="detail-icon">📅</span>
+                <div className="detail-content">
+                  <span className="detail-label">Date</span>
+                  <span className="detail-value">{packageDetails.dateLabel}</span>
+                </div>
+              </div>
+              <div className="detail-card">
+                <span className="detail-icon">🕐</span>
+                <div className="detail-content">
+                  <span className="detail-label">Time</span>
+                  <span className="detail-value">{packageDetails.time}</span>
+                </div>
+              </div>
+              <div className="detail-card">
+                <span className="detail-icon">💰</span>
+                <div className="detail-content">
+                  <span className="detail-label">Amount</span>
+                  <span className="detail-value">₹{packageData.finalPrice}</span>
+                </div>
+              </div>
+            </div>
+            <div className="action-buttons">
+              <button className="btn-change" onClick={() => { setPackageDetails(null); setShowPackageScheduling(true); }}>
+                ← Change Schedule
+              </button>
+              <button className="btn-proceed" onClick={() => { setShowPackagePayment(true); handlePackageProceedToPayment(); }}>
+                Proceed to Payment →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Package Payment Loading State */}
+      {showPackagePayment && !showPackagePaymentModal && !showPackagePaymentConfirmation && (
+        <div className="enrollment-modal-wrapper" style={{ zIndex: 1000 }}>
+          <div className="success-card loading">
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+            </div>
+            <h2>Loading Payment Details...</h2>
+            <p className="loading-message">Please wait while we prepare your payment</p>
+          </div>
+        </div>
+      )}
+
+      {/* Package Payment Modal */}
+      {showPackagePayment && showPackagePaymentModal && !showPackagePaymentConfirmation && (
+        <div className="enrollment-modal-wrapper" style={{ zIndex: 1000 }}>
+          <div className="payment-modal">
+            <button className="btn-close" onClick={() => { setShowPackagePayment(false); setShowPackagePaymentModal(false); }}>✕</button>
+            <h2>💳 Complete Payment</h2>
+            <div className="payment-summary">
+              <div className="summary-row">
+                <span>Package</span>
+                <span>{packageData.title}</span>
+              </div>
+              <div className="summary-row">
+                <span>Session Date</span>
+                <span>{packageDetails.dateLabel}</span>
+              </div>
+              <div className="summary-row">
+                <span>Session Time</span>
+                <span>{packageDetails.time}</span>
+              </div>
+              <div className="summary-divider"></div>
+              <div className="summary-total">
+                <span>Total Amount</span>
+                <span>₹{packageData.finalPrice}</span>
+              </div>
+            </div>
+            <div className="qr-section">
+              <h3>📱 Scan to pay via UPI</h3>
+              <div className="qr-box">
+                <img src="/qr-code.png" alt="UPI Payment QR" className="qr-code" />
+              </div>
+              <p className="upi-id">UPI ID: evalo@upi</p>
+            </div>
+            <div className="payment-buttons">
+              <button className="btn-back-payment" onClick={() => { setShowPackagePayment(false); setShowPackagePaymentModal(false); }}>
+                ← Back
+              </button>
+              <button className="btn-done" onClick={() => setShowPackagePaymentConfirmation(true)}>
+                Payment Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Package Payment Confirmation Modal */}
+      {showPackagePaymentConfirmation && (
+        <div className="enrollment-modal-wrapper" style={{ zIndex: 1001 }}>
+          <div className="payment-confirmation-modal">
+            <button className="btn-close" onClick={() => setShowPackagePaymentConfirmation(false)}>✕</button>
+            <h2>✅ Payment Confirmation</h2>
+            
+            <div className="confirmation-content">
+              <p className="confirmation-text">Have you successfully completed the payment?</p>
+              <p className="confirmation-subtitle">Please upload your payment screenshot</p>
+              
+              <div className="screenshot-upload-section">
+                <label htmlFor="package-screenshot-input" className="upload-label">
+                  <div className="upload-area">
+                    {packagePaymentScreenshot ? (
+                      <div className="screenshot-preview">
+                        <img src={packagePaymentScreenshot} alt="Payment Screenshot" />
+                        <p className="preview-text">✓ Screenshot uploaded</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="upload-icon">📸</div>
+                        <p className="upload-text">Click to upload screenshot</p>
+                        <p className="upload-subtext">or drag and drop</p>
+                      </>
+                    )}
+                  </div>
+                </label>
+                <input
+                  id="package-screenshot-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePackageScreenshotUpload}
+                  style={{ display: 'none' }}
+                />
+              </div>
+            </div>
+
+            <div className="confirmation-buttons">
+              <button className="btn-cancel-confirmation" onClick={() => setShowPackagePaymentConfirmation(false)}>
+                ← Back
+              </button>
+              <button 
+                className="btn-submit-screenshot" 
+                disabled={!packagePaymentScreenshot}
+              >
+                Submit Screenshot
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

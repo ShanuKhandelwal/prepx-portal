@@ -213,7 +213,6 @@ if (role === "fresher") {
 ## 🎨 Styling Highlights
 
 ### Button Styling:
-```css
 .fresher-btn {
   color: #00bcd4 (Cyan)
   Hover: Cyan background with shadow
@@ -226,7 +225,6 @@ if (role === "fresher") {
 ```
 
 ### Animations:
-```css
 - Slide up on page load
 - Hover lift effect on buttons
 - Smooth color transitions

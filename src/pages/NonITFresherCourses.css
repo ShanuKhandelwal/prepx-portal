@@ -1,4 +1,4 @@
-```css
+
 .page-title-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 40px 20px;
@@ -39,7 +39,7 @@
 }
 
 .learning-options-section {
-  // ...existing code...
+
 }
 
 .package-section {
@@ -270,4 +270,3 @@
   font-style: italic;
   margin-top: 12px;
 }
-```

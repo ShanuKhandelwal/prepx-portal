@@ -264,7 +264,6 @@ This means:
 
 ## 📱 Responsive Design Breakpoints
 
-```css
 /* Desktop (1200px+) */
 - Full-width features grid (3 columns)
 - Horizontal timeline

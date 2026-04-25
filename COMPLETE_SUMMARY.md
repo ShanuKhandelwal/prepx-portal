@@ -224,7 +224,6 @@ AdminPanel.jsx
 ```
 
 ### Styling
-```css
 AdminPanel.css
 ├─ Gradient backgrounds
 ├─ Smooth animations

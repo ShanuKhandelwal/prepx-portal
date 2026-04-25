@@ -144,7 +144,6 @@ const features = [
 
 ### Change Colors
 Edit gradient variables in `ProfessionalDashboard.css`:
-```css
 background: linear-gradient(135deg, #1e3a8a 0%, #1e1b4b 100%);
 ```
 

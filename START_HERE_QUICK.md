@@ -70,7 +70,7 @@ Sign Up → IndexedDB → Portal Page → Display 50/page → Download CSV → E
 ```
 Click: 📥 Download All as CSV
       ↓
-Get: PrepX_Users_2024-04-09.csv
+Get: Evalo_Users_2024-04-09.csv
       ↓
 Open: Double-click file
       ↓

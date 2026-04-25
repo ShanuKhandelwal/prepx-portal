@@ -50,7 +50,7 @@ Sign Up → Login → SELECT ROLE → Services
 │  user@email.com      [Logout]      │
 └─────────────────────────────────────┘
 
-        Welcome to PrepX! 🚀
+        Welcome to Evalo! 🚀
     
      Select your experience level
 

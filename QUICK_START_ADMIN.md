@@ -35,7 +35,7 @@ JSON: Open in code editor
 Column headers: Email, Password, UID, Name, DOB, Account Created, Registered
 Opens in: Excel, Google Sheets, LibreOffice
 Use for: Analysis, sharing, organizing
-File: PrepX_Users_2024-04-09.csv
+File: Evalo_Users_2024-04-09.csv
 ```
 
 ### Text File (Quick view)
@@ -43,7 +43,7 @@ File: PrepX_Users_2024-04-09.csv
 Human-readable format
 Opens in: Notepad, Word, any text app
 Use for: Quick viewing, simple backup
-File: PrepX_Users_2024-04-09.txt
+File: Evalo_Users_2024-04-09.txt
 ```
 
 ### JSON (For developers)
@@ -51,7 +51,7 @@ File: PrepX_Users_2024-04-09.txt
 Structured data format
 Opens in: VS Code, any code editor
 Use for: APIs, programming, integration
-File: PrepX_Users_2024-04-09.json
+File: Evalo_Users_2024-04-09.json
 ```
 
 ---

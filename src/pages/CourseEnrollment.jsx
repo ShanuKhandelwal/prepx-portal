@@ -298,7 +298,7 @@ export default function CourseEnrollment() {
               <div className="qr-box">
                 <img src="/qr-code.png" alt="UPI Payment QR" className="qr-code" />
               </div>
-              <p className="upi-id">UPI ID: prepx@upi</p>
+              <p className="upi-id">UPI ID: Evalo@upi</p>
             </div>
 
             <div className="payment-buttons">

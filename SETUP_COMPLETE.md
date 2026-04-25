@@ -56,17 +56,17 @@ Buttons:
 1. CSV (Excel compatible)
    ├─ Opens in: Excel, Google Sheets
    ├─ Best for: Analysis, organizing
-   └─ File: PrepX_Users_2024-04-09.csv
+   └─ File: Evalo_Users_2024-04-09.csv
 
 2. Text (Human readable)
    ├─ Opens in: Notepad, Word
    ├─ Best for: Quick viewing
-   └─ File: PrepX_Users_2024-04-09.txt
+   └─ File: Evalo_Users_2024-04-09.txt
 
 3. JSON (Developer friendly)
    ├─ Opens in: Code editors
    ├─ Best for: Programming, APIs
-   └─ File: PrepX_Users_2024-04-09.json
+   └─ File: Evalo_Users_2024-04-09.json
 ```
 
 ### Admin Panel Features
@@ -388,7 +388,7 @@ Documentation:
 
 ## 🎉 You're All Set!
 
-Your PrepX application now has:
+Your Evalo application now has:
 
 ```
 ✅ Automatic user data collection
@@ -442,5 +442,5 @@ This is perfect for:
 - ✅ Enterprise use
 - ✅ Any scale
 
-**Enjoy building with PrepX!** 🚀
+**Enjoy building with Evalo!** 🚀
 

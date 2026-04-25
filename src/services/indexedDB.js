@@ -4,7 +4,7 @@
  * Data survives browser restarts and works offline.
  */
 
-const DB_NAME = "prepx_db";
+const DB_NAME = "Evalo_db";
 const DB_VERSION = 1;
 const USERS_STORE = "users";
 const REGISTRATIONS_STORE = "registrations";

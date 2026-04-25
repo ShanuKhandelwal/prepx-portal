@@ -52,7 +52,7 @@ export default function EmailTestPage() {
       if (error.name === "AbortError") {
         setMessage("❌ TIMEOUT ERROR\n\nBackend took too long to respond (>10s)\n\nIs backend running on port 5001?");
       } else if (error instanceof TypeError) {
-        setMessage("❌ NETWORK ERROR\n\nCannot connect to backend\n\nMake sure backend is running:\ncd /Users/sanjeevyadav/Desktop/PrepX/backend\nnpm start");
+        setMessage("❌ NETWORK ERROR\n\nCannot connect to backend\n\nMake sure backend is running:\ncd /Users/sanjeevyadav/Desktop/Evalo/backend\nnpm start");
       } else {
         setMessage(`❌ ERROR\n\n${error.message}`);
       }

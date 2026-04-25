@@ -56,7 +56,7 @@ Login → Role Selection (2 Buttons) → Services
 ```
 ╔════════════════════════════════════════════╗
 ║                                            ║
-║     Welcome to PrepX! 🚀                   ║
+║     Welcome to Evalo! 🚀                   ║
 ║                                            ║
 ║  Select your experience level:             ║
 ║                                            ║

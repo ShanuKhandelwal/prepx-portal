@@ -450,7 +450,7 @@ const roadmapTracks = [
 
 ## 📞 Support
 
-All documentation is in the `/prepx-portal` directory:
+All documentation is in the `/Evalo-portal` directory:
 
 - **Quick overview**: QUICK_START.md
 - **Full details**: DELIVERY_SUMMARY.md

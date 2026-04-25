@@ -4,7 +4,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    YOUR PREPX APP                       │
+│                    YOUR Evalo APP                       │
 │  http://localhost:5173                                  │
 └────────────┬────────────────────────────────────────────┘
              │
@@ -112,7 +112,7 @@
                                                      ▼
                                             ┌──────────────────┐
                                             │ Download File    │
-                                            │ PrepX_Users.csv  │
+                                            │ Evalo_Users.csv  │
                                             └──────┬───────────┘
                                                    │
                                                    ▼
@@ -127,7 +127,7 @@
 ## File Structure
 
 ```
-prepx-portal/
+Evalo-portal/
 │
 ├── src/
 │   ├── services/
@@ -202,7 +202,7 @@ User clicks: "📥 Download All as CSV"
                     ▼
          ┌──────────────────────┐
          │ File Downloads:      │
-         │ PrepX_Users_DATE.csv │
+         │ Evalo_Users_DATE.csv │
          └──────────────────────┘
 ```
 

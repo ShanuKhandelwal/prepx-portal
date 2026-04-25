@@ -132,7 +132,7 @@ A **beautiful, unified user data portal** that:
 
 ### File Name:
 ```
-PrepX_Users_2024-04-09.csv
+Evalo_Users_2024-04-09.csv
 (automatically includes today's date)
 ```
 
@@ -175,7 +175,7 @@ Click "Download All as CSV"
        ↓
 Service generates CSV from all users
        ↓
-Browser downloads PrepX_Users_DATE.csv
+Browser downloads Evalo_Users_DATE.csv
        ↓
 Open in Excel
        ↓

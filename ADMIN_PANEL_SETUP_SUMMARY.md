@@ -181,7 +181,7 @@ Select one:
 ```
 Click the download button
 File saves to your Downloads folder
-Filename: PrepX_Users_YYYY-MM-DD.{format}
+Filename: Evalo_Users_YYYY-MM-DD.{format}
 ```
 
 ### Step 5: Use the Data
@@ -273,7 +273,7 @@ http://localhost:5173/admin
 **Step 2:** Download CSV
 ```
 Click "📥 Download as CSV"
-File: PrepX_Users_2024-04-09.csv
+File: Evalo_Users_2024-04-09.csv
 ```
 
 **Step 3:** Open in Excel
@@ -458,7 +458,7 @@ App.jsx
 
 ## 🎓 That's All!
 
-Your PrepX app now has a **complete user management and export system**! 
+Your Evalo app now has a **complete user management and export system**! 
 
 Users automatically save to IndexedDB, and you can download/view them anytime from the admin panel. Everything is production-ready! 🚀
 

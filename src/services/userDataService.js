@@ -113,7 +113,7 @@ export async function generateCSV() {
 export async function downloadAsCSV() {
   try {
     const csv = await generateCSV();
-    const filename = `PrepX_Users_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `Evalo_Users_${new Date().toISOString().split('T')[0]}.csv`;
     downloadFile(csv, filename, 'text/csv');
   } catch (error) {
     console.error('Error downloading CSV:', error);
@@ -141,7 +141,7 @@ export async function getUserCount() {
  */
 async function getAllUsers() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('prepx_db');
+    const request = indexedDB.open('Evalo_db');
 
     request.onsuccess = () => {
       const database = request.result;
@@ -169,7 +169,7 @@ async function getAllUsers() {
  */
 async function getAllRegistrations() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('prepx_db');
+    const request = indexedDB.open('Evalo_db');
 
     request.onsuccess = () => {
       const database = request.result;

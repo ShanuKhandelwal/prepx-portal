@@ -76,7 +76,7 @@ localStorage.setItem("userRole", role);
 ┃  user@example.com  [Logout]   ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-     Welcome to PrepX! 🚀
+     Welcome to Evalo! 🚀
 
 Tell us about your experience level...
 

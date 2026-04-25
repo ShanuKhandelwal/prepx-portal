@@ -58,21 +58,21 @@ File saves to your computer
 ### CSV Format (Recommended)
 ```
 Opens in: Excel, Google Sheets, any spreadsheet
-File: PrepX_Users_2024-04-09.csv
+File: Evalo_Users_2024-04-09.csv
 Best for: Analysis, organizing, sharing
 ```
 
 ### Text Format
 ```
 Opens in: Notepad, Word, any text editor
-File: PrepX_Users_2024-04-09.txt
+File: Evalo_Users_2024-04-09.txt
 Best for: Quick viewing, simple reading
 ```
 
 ### JSON Format
 ```
 Opens in: VS Code, code editors
-File: PrepX_Users_2024-04-09.json
+File: Evalo_Users_2024-04-09.json
 Best for: Developers, programming, APIs
 ```
 
@@ -262,7 +262,7 @@ I built:
 
 ## 🎉 YOU'RE READY!
 
-Your PrepX app now has a **complete user management 
+Your Evalo app now has a **complete user management 
 and export system**!
 
 **Go to:** `http://localhost:5173/admin`

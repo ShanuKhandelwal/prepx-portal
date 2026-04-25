@@ -338,5 +338,5 @@ You have received a **complete, production-ready Fresher Dashboard** with:
 
 ---
 
-**🎊 Happy to serve freshers with the PrepX Fresher Dashboard!**
+**🎊 Happy to serve freshers with the Evalo Fresher Dashboard!**
 

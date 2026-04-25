@@ -3,7 +3,7 @@
 ## Updated Project Structure
 
 ```
-prepx-portal/
+Evalo-portal/
 ├── src/
 │   ├── pages/
 │   │   ├── WelcomePage.jsx

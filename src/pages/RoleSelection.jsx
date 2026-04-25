@@ -86,7 +86,7 @@ export default function RoleSelection() {
 
       {/* Footer */}
       <div className="role-footer">
-        <p>PrepX © 2024 - Interview Preparation Platform</p>
+        <p>Evalo © 2024 - Interview Preparation Platform</p>
       </div>
     </div>
   );

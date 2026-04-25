@@ -2,7 +2,7 @@
 
 ## ✅ What Was Added to Your Project
 
-I've created a complete user data export system for your PrepX application!
+I've created a complete user data export system for your Evalo application!
 
 ---
 
@@ -485,7 +485,7 @@ Documentation:
 
 ## 🚀 Ready to Use!
 
-Your PrepX app now has a **complete user management and export system**!
+Your Evalo app now has a **complete user management and export system**!
 
 - Users sign up → Data saved automatically
 - Admin visits `/admin` → Sees all users

@@ -159,7 +159,7 @@ PostgreSQL on that server: Still FREE ✅
 
 ## 📊 Real Cost Breakdown for Your Business
 
-### Scenario: You're Building PrepX
+### Scenario: You're Building Evalo
 
 **TOTAL YEARLY COSTS:**
 
@@ -345,7 +345,7 @@ ENTERPRISE COST:
 
 ---
 
-## 🎯 For Your PrepX Business App
+## 🎯 For Your Evalo Business App
 
 ### What You'll Actually Pay
 

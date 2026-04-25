@@ -1,6 +1,6 @@
 # Complete Data Structure & Zero-Cost Database Integration Guide
 
-This file documents ALL data in your PrepX project and provides code to connect with various zero-cost databases.
+This file documents ALL data in your Evalo project and provides code to connect with various zero-cost databases.
 
 ---
 
@@ -797,7 +797,7 @@ export async function signup(email, password) {
     await db.createUser(email, uid, password, registrationId);
 
     // Store in localStorage (session)
-    localStorage.setItem('prepx_current_user', JSON.stringify({ uid, email, registrationId }));
+    localStorage.setItem('Evalo_current_user', JSON.stringify({ uid, email, registrationId }));
 
     return { uid, email, registrationId };
   } catch (error) {
@@ -929,7 +929,7 @@ This means you can swap databases by just changing the import statement!
 2. Create account (free tier)
 3. Create cluster
 4. Enable Data API
-5. Create database "prepx" with collections "users" and "registrations"
+5. Create database "Evalo" with collections "users" and "registrations"
 6. Get API key and App ID
 7. Install axios: `npm install axios`
 

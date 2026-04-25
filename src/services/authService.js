@@ -48,7 +48,7 @@ export async function signup(email, password) {
   };
 
   await indexedDB.putUser(user);
-  localStorage.setItem("prepx_current_user", JSON.stringify({ uid, email }));
+  localStorage.setItem("Evalo_current_user", JSON.stringify({ uid, email }));
   return { uid, email };
 }
 
@@ -71,7 +71,7 @@ export async function login(email, password) {
     throw new Error("Invalid email or password");
   }
 
-  localStorage.setItem("prepx_current_user", JSON.stringify({ uid: user.uid, email: user.email }));
+  localStorage.setItem("Evalo_current_user", JSON.stringify({ uid: user.uid, email: user.email }));
   return { uid: user.uid, email: user.email };
 }
 
@@ -80,7 +80,7 @@ export async function login(email, password) {
  * @returns {Promise<{uid: string, email: string} | null>}
  */
 export async function getCurrentUser() {
-  const userJson = localStorage.getItem("prepx_current_user");
+  const userJson = localStorage.getItem("Evalo_current_user");
   if (!userJson) return null;
   return JSON.parse(userJson);
 }
@@ -90,7 +90,7 @@ export async function getCurrentUser() {
  * @returns {Promise<void>}
  */
 export async function logout() {
-  localStorage.removeItem("prepx_current_user");
+  localStorage.removeItem("Evalo_current_user");
 }
 
 /**
@@ -126,9 +126,9 @@ export async function registerCandidate(uid, name, dob) {
     await indexedDB.putUser(user);
 
     // Update current user in localStorage
-    const currentUser = JSON.parse(localStorage.getItem("prepx_current_user") || "{}");
+    const currentUser = JSON.parse(localStorage.getItem("Evalo_current_user") || "{}");
     currentUser.registrationId = registrationId;
-    localStorage.setItem("prepx_current_user", JSON.stringify(currentUser));
+    localStorage.setItem("Evalo_current_user", JSON.stringify(currentUser));
   }
 
   return { registrationId };

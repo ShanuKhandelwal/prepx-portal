@@ -77,7 +77,7 @@ That's all you need!
 Columns: Email | Password | Name | DOB | Created | etc
 Rows: All your users
 Format: Excel-compatible
-File: PrepX_Users_2024-04-09.csv
+File: Evalo_Users_2024-04-09.csv
 ```
 
 ### How to Use:

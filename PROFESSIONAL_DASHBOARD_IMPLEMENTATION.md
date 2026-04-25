@@ -156,6 +156,6 @@ The Professional Dashboard is fully implemented and ready for production:
 
 ## Summary
 
-The Professional Dashboard is now complete and fully integrated into the PrepX platform. Users who select "I'm a Professional" during role selection will be presented with a comprehensive, role-tailored onboarding experience featuring advanced career guidance, senior-level interview preparation, leadership development, and strategic career planning tools.
+The Professional Dashboard is now complete and fully integrated into the Evalo platform. Users who select "I'm a Professional" during role selection will be presented with a comprehensive, role-tailored onboarding experience featuring advanced career guidance, senior-level interview preparation, leadership development, and strategic career planning tools.
 
 The dashboard follows the same design patterns as the FresherDashboard for consistency but with content and styling tailored for experienced professionals.

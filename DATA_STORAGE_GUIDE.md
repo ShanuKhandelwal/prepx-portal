@@ -1,7 +1,7 @@
 /**
  * DATA STORAGE ARCHITECTURE GUIDE
  * 
- * This document explains where and how data is stored in the PrepX portal.
+ * This document explains where and how data is stored in the Evalo portal.
  */
 
 // =====================================================================
@@ -20,7 +20,7 @@
 //   - Works offline
 // 
 // How it works:
-//   - Opens database: "prepx_db"
+//   - Opens database: "Evalo_db"
 //   - Creates object stores (tables):
 //     * "users" - stores user accounts (keyPath: email)
 //     * "registrations" - stores registration records (keyPath: registrationId)
@@ -28,7 +28,7 @@
 // 
 // Storage Details:
 //   ┌─────────────────────────────────────────┐
-//   │         IndexedDB: prepx_db             │
+//   │         IndexedDB: Evalo_db             │
 //   ├─────────────────────────────────────────┤
 //   │ Table: users                            │
 //   │ ├─ email (primary key)                  │
@@ -51,7 +51,7 @@
 // Location: Browser's localStorage (key-value pairs)
 // 
 // What it stores:
-//   - prepx_current_user: Currently logged-in user (email + uid)
+//   - Evalo_current_user: Currently logged-in user (email + uid)
 // 
 // Why localStorage?
 //   - Quick access to session state
@@ -65,7 +65,7 @@
 // 
 // Storage Structure:
 //   localStorage = {
-//     "prepx_current_user": {
+//     "Evalo_current_user": {
 //       "uid": "user_1712345678_abc123",
 //       "email": "user@example.com",
 //       "registrationId": "reg_1712345678_xyz789"  // if registered
@@ -85,7 +85,7 @@
 //    - Checks if user already exists in IndexedDB
 //    - Creates user object with uid, email, password, etc.
 //    - STORES in IndexedDB (putUser)
-//    - STORES session in localStorage (prepx_current_user)
+//    - STORES session in localStorage (Evalo_current_user)
 // 4. Returns { uid, email }
 // 5. Redirects to registration page
 
@@ -143,13 +143,13 @@
 // │  ├─ Checks IndexedDB for existing user
 // │  ├─ Creates new user object
 // │  ├─ STORES in IndexedDB (indexedDB.putUser)
-// │  └─ STORES session in localStorage (prepx_current_user)
+// │  └─ STORES session in localStorage (Evalo_current_user)
 // │
 // ├─ login(email, password)
 // │  ├─ Validates input
 // │  ├─ Retrieves user from IndexedDB (indexedDB.getUser)
 // │  ├─ Verifies password
-// │  └─ STORES session in localStorage (prepx_current_user)
+// │  └─ STORES session in localStorage (Evalo_current_user)
 // │
 // ├─ logout()
 // │  └─ REMOVES session from localStorage
@@ -212,11 +212,11 @@
 // BROWSER DEV TOOLS:
 // 1. Open DevTools (F12 or Cmd+Option+I)
 // 2. Go to "Application" or "Storage" tab
-// 3. Expand "IndexedDB" → "prepx_db"
+// 3. Expand "IndexedDB" → "Evalo_db"
 // 4. View tables: "users" and "registrations"
 // 5. Expand "Local Storage"
 // 6. Click on your app URL
-// 7. View "prepx_current_user" key
+// 7. View "Evalo_current_user" key
 
 // CONSOLE COMMANDS (run in browser console):
 // ─────────────────────────────────────────
@@ -226,11 +226,11 @@
 // db.getUser('test@example.com').then(user => console.log(user))
 
 // View localStorage:
-// console.log(localStorage.getItem('prepx_current_user'))
+// console.log(localStorage.getItem('Evalo_current_user'))
 
 // View all users:
 // import { db } from './src/services/indexedDB.js'
-// const request = indexedDB.open('prepx_db')
+// const request = indexedDB.open('Evalo_db')
 // // (more complex - use DevTools instead)
 
 // =====================================================================
@@ -256,20 +256,20 @@ DATA STORAGE SUMMARY:
 ────────────────────
 
 User Accounts:
-  Storage: IndexedDB (prepx_db → users table)
+  Storage: IndexedDB (Evalo_db → users table)
   Key: email
   Fields: uid, email, password, registrationId, createdAt
   Accessed by: signup(), login(), registerCandidate()
 
 Registration Records:
-  Storage: IndexedDB (prepx_db → registrations table)
+  Storage: IndexedDB (Evalo_db → registrations table)
   Key: registrationId
   Fields: registrationId, uid, name, dob, createdAt
   Accessed by: registerCandidate(), getRegistration()
 
 Current Session:
   Storage: localStorage
-  Key: prepx_current_user
+  Key: Evalo_current_user
   Fields: uid, email, registrationId
   Accessed by: AuthProvider, useAuth()
 

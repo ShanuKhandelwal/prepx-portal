@@ -26,11 +26,11 @@ Storage
 └── ...
 ```
 
-### Step 4: Open prepx_db
-Click on **IndexedDB** to expand it, then click on **"prepx_db"**:
+### Step 4: Open Evalo_db
+Click on **IndexedDB** to expand it, then click on **"Evalo_db"**:
 ```
 IndexedDB
-└── prepx_db  ← CLICK HERE
+└── Evalo_db  ← CLICK HERE
     ├── users  ← TABLE WITH USER ACCOUNTS
     └── registrations  ← TABLE WITH REGISTRATION DATA
 ```
@@ -38,7 +38,7 @@ IndexedDB
 ### Step 5: View User Accounts
 Click on **"users"** to see all user accounts:
 ```
-prepx_db
+Evalo_db
 └── users
     ├── test@example.com  (email)
     ├── john@gmail.com    (email)
@@ -76,7 +76,7 @@ console.log(user);
 ```javascript
 // Get all users in IndexedDB
 async function getAllUsers() {
-  const request = indexedDB.open('prepx_db');
+  const request = indexedDB.open('Evalo_db');
   
   return new Promise((resolve) => {
     request.onsuccess = () => {
@@ -100,7 +100,7 @@ getAllUsers();
 ### View Currently Logged In User
 ```javascript
 // See the current user from localStorage
-const currentUser = JSON.parse(localStorage.getItem('prepx_current_user'));
+const currentUser = JSON.parse(localStorage.getItem('Evalo_current_user'));
 console.log('Current User:', currentUser);
 ```
 
@@ -166,10 +166,10 @@ After signup, user fills registration form, stored in `registrations` table:
 
 | What to View | Where to Go |
 |---|---|
-| **All user accounts** | DevTools → Application → IndexedDB → prepx_db → users |
+| **All user accounts** | DevTools → Application → IndexedDB → Evalo_db → users |
 | **User details** | Click on user email in users table |
-| **All registrations** | DevTools → Application → IndexedDB → prepx_db → registrations |
-| **Current logged-in user** | DevTools → Application → Local Storage → prepx_current_user |
+| **All registrations** | DevTools → Application → IndexedDB → Evalo_db → registrations |
+| **Current logged-in user** | DevTools → Application → Local Storage → Evalo_current_user |
 | **Test results** | Open browser Console (F12) → look at logged messages |
 
 ---
@@ -180,7 +180,7 @@ After signup, user fills registration form, stored in `registrations` table:
 2. **Open DevTools**: Press `Cmd + Option + I` (Mac) or `F12` (Windows)
 3. **Go to Application tab**: Click "Application" at the top
 4. **Click IndexedDB**: In left sidebar, expand "IndexedDB"
-5. **Click prepx_db**: Click the database name
+5. **Click Evalo_db**: Click the database name
 6. **Click users**: See all user accounts
 7. **Click test@example.com**: See the test user details
 
@@ -232,10 +232,10 @@ console.log('All data cleared!');
 **To see user account data:**
 1. Open DevTools (`Cmd + Option + I`)
 2. Click "Application" tab
-3. Click IndexedDB → prepx_db → users
+3. Click IndexedDB → Evalo_db → users
 4. See all user accounts with their details
 
 **The data is stored in:**
-- **IndexedDB** (`prepx_db` database) - Permanent storage
-- **localStorage** (`prepx_current_user`) - Session storage
+- **IndexedDB** (`Evalo_db` database) - Permanent storage
+- **localStorage** (`Evalo_current_user`) - Session storage
 - **Both survive** browser restart

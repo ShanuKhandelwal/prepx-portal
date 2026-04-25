@@ -62,7 +62,7 @@ export async function generateUserTextFile() {
 
     let textContent = '';
     textContent += '════════════════════════════════════════════════════════════\n';
-    textContent += '                    PREPX USER ACCOUNTS                    \n';
+    textContent += '                    Evalo USER ACCOUNTS                    \n';
     textContent += '════════════════════════════════════════════════════════════\n';
     textContent += `Generated: ${new Date().toLocaleString()}\n`;
     textContent += `Total Users: ${users.length}\n`;
@@ -138,7 +138,7 @@ export async function generateUserJSON() {
  */
 async function getAllUsers() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('prepx_db');
+    const request = indexedDB.open('Evalo_db');
 
     request.onsuccess = () => {
       const database = request.result;
@@ -168,7 +168,7 @@ async function getAllUsers() {
  */
 async function getAllRegistrations() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('prepx_db');
+    const request = indexedDB.open('Evalo_db');
 
     request.onsuccess = () => {
       const database = request.result;
@@ -237,7 +237,7 @@ export function downloadFile(content, filename, mimeType = 'text/plain') {
 export async function downloadAsCSV() {
   try {
     const csv = await generateUserCSV();
-    const filename = `PrepX_Users_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `Evalo_Users_${new Date().toISOString().split('T')[0]}.csv`;
     downloadFile(csv, filename, 'text/csv');
   } catch (error) {
     console.error('Error downloading CSV:', error);
@@ -252,7 +252,7 @@ export async function downloadAsCSV() {
 export async function downloadAsText() {
   try {
     const text = await generateUserTextFile();
-    const filename = `PrepX_Users_${new Date().toISOString().split('T')[0]}.txt`;
+    const filename = `Evalo_Users_${new Date().toISOString().split('T')[0]}.txt`;
     downloadFile(text, filename, 'text/plain');
   } catch (error) {
     console.error('Error downloading text file:', error);
@@ -267,7 +267,7 @@ export async function downloadAsText() {
 export async function downloadAsJSON() {
   try {
     const json = await generateUserJSON();
-    const filename = `PrepX_Users_${new Date().toISOString().split('T')[0]}.json`;
+    const filename = `Evalo_Users_${new Date().toISOString().split('T')[0]}.json`;
     downloadFile(json, filename, 'application/json');
   } catch (error) {
     console.error('Error downloading JSON file:', error);

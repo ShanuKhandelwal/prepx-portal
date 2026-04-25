@@ -58,17 +58,17 @@ URL: http://localhost:5173/admin
 CSV Format (Excel):
 ├─ Opens in Excel/Sheets
 ├─ Best for analysis
-└─ File: PrepX_Users_2024-04-09.csv
+└─ File: Evalo_Users_2024-04-09.csv
 
 Text Format:
 ├─ Opens in Notepad
 ├─ Human readable
-└─ File: PrepX_Users_2024-04-09.txt
+└─ File: Evalo_Users_2024-04-09.txt
 
 JSON Format:
 ├─ For developers
 ├─ Structured data
-└─ File: PrepX_Users_2024-04-09.json
+└─ File: Evalo_Users_2024-04-09.json
 ```
 
 ---
@@ -561,7 +561,7 @@ Optional: Migrate to cloud database
 
 ## 🎊 YOU'RE ALL SET!
 
-Your PrepX application now has a **complete user management and export system**!
+Your Evalo application now has a **complete user management and export system**!
 
 - Users automatically save ✅
 - Admin can view them ✅  

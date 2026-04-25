@@ -48,7 +48,7 @@ Your **new unified portal** is complete and ready to use!
 
 ```
 1. Click: 📥 Download All as CSV
-2. File downloads as: PrepX_Users_2024-04-09.csv
+2. File downloads as: Evalo_Users_2024-04-09.csv
 3. Open in: Excel, Google Sheets, or any app
 4. Data includes: Email, Password, Name, DOB, Dates
 ```

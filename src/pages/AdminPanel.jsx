@@ -189,21 +189,21 @@ export default function AdminPanel() {
                 <h4>CSV Format (Excel)</h4>
                 <p>📊 Open with: Microsoft Excel, Google Sheets, any spreadsheet app</p>
                 <p>✅ Best for: Data analysis, organizing in spreadsheets</p>
-                <p>✅ File name: PrepX_Users_YYYY-MM-DD.csv</p>
+                <p>✅ File name: Evalo_Users_YYYY-MM-DD.csv</p>
               </div>
 
               <div className="format-detail">
                 <h4>Text Format (.txt)</h4>
                 <p>📄 Open with: Notepad, Word, any text editor</p>
                 <p>✅ Best for: Quick viewing, human-readable format</p>
-                <p>✅ File name: PrepX_Users_YYYY-MM-DD.txt</p>
+                <p>✅ File name: Evalo_Users_YYYY-MM-DD.txt</p>
               </div>
 
               <div className="format-detail">
                 <h4>JSON Format (.json)</h4>
                 <p>🔧 Open with: Code editors, specialized JSON viewers</p>
                 <p>✅ Best for: Programming, data integration, APIs</p>
-                <p>✅ File name: PrepX_Users_YYYY-MM-DD.json</p>
+                <p>✅ File name: Evalo_Users_YYYY-MM-DD.json</p>
               </div>
             </div>
 

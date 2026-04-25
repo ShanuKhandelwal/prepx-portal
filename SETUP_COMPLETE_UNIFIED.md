@@ -122,7 +122,7 @@ src/App.jsx
 
 ### File Name:
 ```
-PrepX_Users_2024-04-09.csv
+Evalo_Users_2024-04-09.csv
 (auto-generated with current date)
 ```
 
@@ -277,7 +277,7 @@ console.log(csvString); // "Email,Password,UID,..."
 
 // Example 3: Trigger download directly
 await userDataService.downloadAsCSV();
-// Browser downloads PrepX_Users_2024-04-09.csv
+// Browser downloads Evalo_Users_2024-04-09.csv
 
 // Example 4: Get user count only
 const count = await userDataService.getUserCount();

@@ -62,7 +62,7 @@ That's all you need!
 
 ```
 1. Click: 📥 Download All as CSV
-2. File downloads: PrepX_Users_2024-04-09.csv
+2. File downloads: Evalo_Users_2024-04-09.csv
 3. Double-click to open in Excel
 4. Done!
 ```

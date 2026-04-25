@@ -29,7 +29,7 @@ You'll see:
 ### Step 3: Download Data
 ```
 Click: 📥 Download All as CSV
-File downloads as: PrepX_Users_2024-04-09.csv
+File downloads as: Evalo_Users_2024-04-09.csv
 Open in: Excel, Google Sheets, or any spreadsheet app
 ```
 

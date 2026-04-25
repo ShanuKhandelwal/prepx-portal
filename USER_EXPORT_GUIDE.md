@@ -69,9 +69,9 @@ File will download automatically!
 
 ### File Names
 ```
-PrepX_Users_2024-04-09.csv
-PrepX_Users_2024-04-09.txt
-PrepX_Users_2024-04-09.json
+Evalo_Users_2024-04-09.csv
+Evalo_Users_2024-04-09.txt
+Evalo_Users_2024-04-09.json
 ```
 
 ---
@@ -99,7 +99,7 @@ john@gmail.com,mypass456,user_def456,Jane Smith,1998-08-20,2024-04-09T11:00:00Z,
 ### Example Text Format Output
 ```
 ════════════════════════════════════════════════════════════
-                    PREPX USER ACCOUNTS                    
+                    Evalo USER ACCOUNTS                    
 ════════════════════════════════════════════════════════════
 Generated: 4/9/2024, 3:45:00 PM
 Total Users: 2
@@ -370,7 +370,7 @@ export function ReportButton() {
 ```
 1. Select "CSV (Excel compatible)"
 2. Click "📥 Download as CSV"
-3. File downloads as "PrepX_Users_YYYY-MM-DD.csv"
+3. File downloads as "Evalo_Users_YYYY-MM-DD.csv"
 ```
 
 ### Step 4: Open in Excel

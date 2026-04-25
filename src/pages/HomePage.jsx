@@ -93,7 +93,7 @@ export default function HomePage() {
               lineHeight: "1.2",
             }}
           >
-            Welcome to Evalo!! 🚀
+            Welcome to Evalo!!
           </h1>
           <h2
             style={{
